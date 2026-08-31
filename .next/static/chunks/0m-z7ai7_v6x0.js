@@ -1,0 +1,8 @@
+__turbopack_load_page_chunks__("/CrewManagementFtl", [
+  "static/chunks/0h-sb1vfct7lt.js",
+  "static/chunks/2q1c1mb7nrgk4.js",
+  "static/chunks/1_wkwmpxkc4wo.js",
+  "static/chunks/0q-0id977t-4w.js",
+  "static/chunks/3wa-4m79ndwe9.js",
+  "static/chunks/turbopack-425ssv4f6rp3w.js"
+])

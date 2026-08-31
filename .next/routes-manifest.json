@@ -1,0 +1,147 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "pages",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/AboutUs",
+      "regex": "^/AboutUs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/AboutUs(?:/)?$"
+    },
+    {
+      "page": "/Blog",
+      "regex": "^/Blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Blog(?:/)?$"
+    },
+    {
+      "page": "/Contact",
+      "regex": "^/Contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Contact(?:/)?$"
+    },
+    {
+      "page": "/CrewManagementFtl",
+      "regex": "^/CrewManagementFtl(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/CrewManagementFtl(?:/)?$"
+    },
+    {
+      "page": "/FleetMaintenance",
+      "regex": "^/FleetMaintenance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/FleetMaintenance(?:/)?$"
+    },
+    {
+      "page": "/FlightScheduling",
+      "regex": "^/FlightScheduling(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/FlightScheduling(?:/)?$"
+    },
+    {
+      "page": "/Home",
+      "regex": "^/Home(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Home(?:/)?$"
+    },
+    {
+      "page": "/Integrations",
+      "regex": "^/Integrations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Integrations(?:/)?$"
+    },
+    {
+      "page": "/NotFound",
+      "regex": "^/NotFound(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/NotFound(?:/)?$"
+    },
+    {
+      "page": "/OperationsDispatch",
+      "regex": "^/OperationsDispatch(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/OperationsDispatch(?:/)?$"
+    },
+    {
+      "page": "/OurApps",
+      "regex": "^/OurApps(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/OurApps(?:/)?$"
+    },
+    {
+      "page": "/Platform",
+      "regex": "^/Platform(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Platform(?:/)?$"
+    },
+    {
+      "page": "/PlatformDetailPlaceholder",
+      "regex": "^/PlatformDetailPlaceholder(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/PlatformDetailPlaceholder(?:/)?$"
+    },
+    {
+      "page": "/ReportingAnalytics",
+      "regex": "^/ReportingAnalytics(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ReportingAnalytics(?:/)?$"
+    },
+    {
+      "page": "/Security",
+      "regex": "^/Security(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Security(?:/)?$"
+    },
+    {
+      "page": "/Solutions",
+      "regex": "^/Solutions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Solutions(?:/)?$"
+    },
+    {
+      "page": "/Updates",
+      "regex": "^/Updates(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Updates(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

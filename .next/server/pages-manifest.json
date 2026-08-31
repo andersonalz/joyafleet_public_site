@@ -1,0 +1,22 @@
+{
+  "/AboutUs": "pages/AboutUs.js",
+  "/Blog": "pages/Blog.js",
+  "/Contact": "pages/Contact.js",
+  "/CrewManagementFtl": "pages/CrewManagementFtl.js",
+  "/FleetMaintenance": "pages/FleetMaintenance.js",
+  "/FlightScheduling": "pages/FlightScheduling.js",
+  "/Home": "pages/Home.js",
+  "/Integrations": "pages/Integrations.js",
+  "/NotFound": "pages/NotFound.js",
+  "/OperationsDispatch": "pages/OperationsDispatch.js",
+  "/OurApps": "pages/OurApps.js",
+  "/Platform": "pages/Platform.js",
+  "/PlatformDetailPlaceholder": "pages/PlatformDetailPlaceholder.js",
+  "/ReportingAnalytics": "pages/ReportingAnalytics.js",
+  "/Security": "pages/Security.js",
+  "/Solutions": "pages/Solutions.js",
+  "/Updates": "pages/Updates.js",
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js"
+}
