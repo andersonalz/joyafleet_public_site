@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeue-Roman.woff') format('woff'),
+       url('/fonts/HelveticaNeue-Roman.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --deep-navy: #071B33;
+  --joya-navy: #002D70;
+  --primary-blue: #1267E5;
+  --aviation-blue: #1F8BFF;
+  --sky-cyan: #39BFF8;
+  --ice-blue: #EEF7FF;
+  --soft-surface: #F5F9FE;
+  --white: #FFFFFF;
+  --text-primary: #10233F;
+  --text-secondary: #52667F;
+  --brand-red: #EE1C25;
+  --soft-red: #FFF1F2;
+  --border-light: #DCE8F5;
+  --border-hover: #A8CCF5;
+  --footer-bg: #06172B;
+}
+
+@theme {
+  --font-sans: "Helvetica Neue", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-deep-navy: #071B33;
+  --color-joya-navy: #002D70;
+  --color-primary-blue: #1267E5;
+  --color-aviation-blue: #1F8BFF;
+  --color-sky-cyan: #39BFF8;
+  --color-ice-blue: #EEF7FF;
+  --color-soft-surface: #F5F9FE;
+  --color-brand-red: #EE1C25;
+  --color-soft-red: #FFF1F2;
+  --color-text-primary: #10233F;
+  --color-text-secondary: #52667F;
+  --color-border-light: #DCE8F5;
+  --color-border-hover: #A8CCF5;
+  --color-footer-bg: #06172B;
+}
+
+html {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: clip;
+  overflow-x: hidden;
+  background-color: transparent;
+  color: #10233F;
+  color-scheme: light;
+  box-sizing: border-box;
+  position: relative;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Ensure all main sections and animation containers are strictly contained horizontally */
+main, #main-content, main section {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Custom Aviation Sky Helper Utility Classes */
+.aviation-hero-bg {
+  background: radial-gradient(circle at 70% 30%, rgba(31, 139, 255, 0.20), transparent 45%),
+              radial-gradient(circle at 20% 80%, rgba(57, 191, 248, 0.12), transparent 40%),
+              linear-gradient(135deg, #071B33 0%, #002D70 100%);
+}
+
+.aviation-cta-bg {
+  background: radial-gradient(circle at 30% 40%, rgba(57, 191, 248, 0.18), transparent 55%),
+              linear-gradient(135deg, #071B33 0%, #002D70 100%);
+}
+
+.aviation-card {
+  background-color: #FFFFFF;
+  border: 1px solid #DCE8F5;
+  box-shadow: 0 8px 30px rgba(0, 45, 112, 0.06);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aviation-card:hover {
+  border-color: #A8CCF5;
+  box-shadow: 0 16px 40px rgba(0, 45, 112, 0.10);
+  transform: translateY(-2px);
+}
+
+/* Scroll-Driven Slide & Reveal Animations with strictly contained translation distances */
+.scroll-reveal,
+.scroll-slide-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-slide-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-slide-right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-slide-scale {
+  opacity: 0;
+  transform: scale(0.97) translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible,
+.scroll-slide-up.is-visible,
+.scroll-slide-left.is-visible,
+.scroll-slide-right.is-visible,
+.scroll-slide-scale.is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Contain AOS transforms and avoid 100vw viewport scrollbar gutter overflow */
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+[data-aos] {
+  max-width: 100% !important;
+}
+
+/* Constrain AOS horizontal translations to safe values that never cause horizontal scrolling */
+[data-aos="fade-left"],
+[data-aos="fade-right"] {
+  transform: none !important;
+}
+[data-aos].aos-animate {
+  transform: none !important;
+}
+
+/* Ensure every section and container has overflow-x: clip and 100% max width */
+section, main, #main-content, #root, div#root > div, article, footer, header {
+  max-width: 100% !important;
+  overflow-x: clip !important;
+  box-sizing: border-box !important;
+}
+
+/* Stagger support for inner grids */
+.scroll-reveal.is-visible .stagger-1 { transition-delay: 0.1s; }
+.scroll-reveal.is-visible .stagger-2 { transition-delay: 0.2s; }
+.scroll-reveal.is-visible .stagger-3 { transition-delay: 0.3s; }
+.scroll-reveal.is-visible .stagger-4 { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-slide-up,
+  .scroll-slide-left,
+  .scroll-slide-right,
+  .scroll-slide-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Unified seamless vertical background flow across all pages */
+/* The Hero section is 100vh full-screen opaque aviation blue, covering the video during hero view */
+main section#hero,
+main section[id="hero"],
+.aviation-hero-bg {
+  background-color: #071E3D !important;
+  background-image: linear-gradient(180deg, #071E3D 0%, #0A2E5C 50%, #0D3B73 100%) !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Ensure HeroBackground inside hero retains full atmospheric gradients, radial glow, and radar grid */
+main section#hero div[aria-hidden="true"],
+main section[id="hero"] div[aria-hidden="true"],
+.aviation-hero-bg div[aria-hidden="true"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* All subsequent sections after the hero section allow the background video to show through seamlessly */
+main section:not(#hero):not([id="hero"]):not(.aviation-hero-bg):not(.aviation-cta-bg) {
+  background-color: transparent !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Headings in content sections default to pure deep black */
+main section:not(#hero):not([id="hero"]):not(#cta):not([id="cta"]):not(.aviation-cta-bg):not([class*="aviation-cta-bg"]):not([class*="bg-[#071B33]"]):not([class*="bg-[#06172B]"]) h1:not([class*="text-white"]),
+main section:not(#hero):not([id="hero"]):not(#cta):not([id="cta"]):not(.aviation-cta-bg):not([class*="aviation-cta-bg"]):not([class*="bg-[#071B33]"]):not([class*="bg-[#06172B]"]) h2:not([class*="text-white"]),
+main section:not(#hero):not([id="hero"]):not(#cta):not([id="cta"]):not(.aviation-cta-bg):not([class*="aviation-cta-bg"]):not([class*="bg-[#071B33]"]):not([class*="bg-[#06172B]"]) h3:not([class*="text-white"]),
+main section:not(#hero):not([id="hero"]):not(#cta):not([id="cta"]):not(.aviation-cta-bg):not([class*="aviation-cta-bg"]):not([class*="bg-[#071B33]"]):not([class*="bg-[#06172B]"]) h4:not([class*="text-white"]),
+#schedule-deep-dive h2,
+#schedule-deep-dive p {
+  color: #000000;
+}
+
+/* Explicit white text and animation removal for specific CTA and requested sections */
+#cta,
+section[id="cta"],
+.aviation-cta-bg,
+[class*="aviation-cta-bg"],
+#cta *,
+section[id="cta"] *,
+#contact-page,
+#contact-page *,
+.contact-page,
+.contact-page *,
+#about-cta-section,
+#about-cta-section *,
+#solutions-cta-section,
+#solutions-cta-section *,
+#product-cta-section,
+#product-cta-section *,
+#platform-cta-section,
+#platform-cta-section *,
+#flight-scheduling-cta-section,
+#flight-scheduling-cta-section *,
+#operations-dispatch-cta-section,
+#operations-dispatch-cta-section *,
+#crew-management-ftl-cta-section,
+#crew-management-ftl-cta-section *,
+#fleet-maintenance-cta-section,
+#fleet-maintenance-cta-section *,
+#reporting-analytics-cta-section,
+#reporting-analytics-cta-section *,
+#integrations-cta-section,
+#integrations-cta-section *,
+form,
+form * {
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
+  max-width: 100% !important;
+  overflow-x: clip !important;
+}
+
+/* Ensure /our-apps page is completely restored to its original interactive state with all animations, transforms, transitions and bottom-sheet dragging intact */
+#our-apps-page,
+#our-apps-page *,
+.our-apps-page,
+.our-apps-page * {
+  animation: revert !important;
+  transform: revert !important;
+  transition: revert !important;
+}
+
+#our-apps-page [style*="transform"],
+.our-apps-page [style*="transform"] {
+  transform: revert;
+}
+
+#cta h2,
+section[id="cta"] h2,
+.aviation-cta-bg h2,
+[class*="aviation-cta-bg"] h2 {
+  color: #ffffff !important;
+}
+
+
+

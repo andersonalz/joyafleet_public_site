@@ -1,0 +1,8 @@
+{
+  "name": "Joya Fleet - Airline Operations Platform",
+  "description": "Cloud-based flight management software connecting flight scheduling, operations, crew management, dispatch workflows, fleet visibility, and reporting for aviation operators.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
