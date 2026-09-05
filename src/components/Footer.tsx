@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from './RouterLink';
 import { Wind } from 'lucide-react';
 
 export function Footer() {
@@ -68,4 +68,3 @@ export function Footer() {
     </footer>
   );
 }
-

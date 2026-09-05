@@ -8,8 +8,6 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "build": "next build",
-    "preview": "vite preview",
-    "clean": "rm -rf dist",
     "start": "next start"
   },
   "dependencies": {
@@ -20,22 +18,19 @@
     "motion": "^12.23.24",
     "next": "16.3.3",
     "react": "^19.0.1",
-    "react-dom": "^19.0.1",
-    "react-router-dom": "^7.15.0"
+    "react-dom": "^19.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@next/eslint-plugin-next": "16.3.3",
+    "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "^22.14.0",
     "@types/react": "19.2.18",
     "autoprefixer": "^10.4.21",
-    "esbuild": "^0.25.0",
     "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.8.0",
     "tailwindcss": "^4.1.14",
-    "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.65.0"
   }

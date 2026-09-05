@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import AOS from 'aos';
 
 /**
@@ -8,7 +10,7 @@ import AOS from 'aos';
  * Automatically ensures elements, cards, titles, and slides animate smoothly.
  */
 export function AOSManager() {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     // Initialize AOS with smooth, fast and snappy aviation timing parameters

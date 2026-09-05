@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -155,4 +157,3 @@ export function VideoBackground({ src }: VideoBackgroundProps) {
     </div>
   );
 }
-

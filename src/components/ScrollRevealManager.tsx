@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 
 /**
  * ScrollRevealManager
@@ -7,7 +9,7 @@ import { useLocation } from 'react-router-dom';
  * across all pages and animates them with smooth slide-up and fade-in animations on scroll.
  */
 export function ScrollRevealManager() {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     // Respect user's motion preferences

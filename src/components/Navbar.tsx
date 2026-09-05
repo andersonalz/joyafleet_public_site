@@ -1,5 +1,8 @@
+"use client";
+
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
+import Link from './RouterLink';
 import { 
   Menu, 
   X, 
@@ -20,7 +23,7 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
   const [mobileProductExpanded, setMobileProductExpanded] = useState(true);
-  const location = useLocation();
+  const pathname = usePathname() ?? '/';
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -88,9 +91,9 @@ export function Navbar() {
     { name: 'Contact', path: '/contact' }
   ];
 
-  const [prevPath, setPrevPath] = useState(location.pathname);
-  if (prevPath !== location.pathname) {
-    setPrevPath(location.pathname);
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
     setMenuOpen(false);
     setProductDropdownOpen(false);
   }
@@ -190,10 +193,10 @@ export function Navbar() {
   };
 
   const isProductActive = 
-    location.pathname === '/product' || 
-    location.pathname === '/platform' ||
-    location.pathname.startsWith('/product/') || 
-    location.pathname.startsWith('/platform/');
+    pathname === '/product' ||
+    pathname === '/platform' ||
+    pathname.startsWith('/product/') ||
+    pathname.startsWith('/platform/');
 
   return (
     <>
@@ -249,8 +252,8 @@ export function Navbar() {
                   {productModules.map((item) => {
                     const Icon = item.icon;
                     const isActive = 
-                      location.pathname === item.path || 
-                      (item.path === '/product' && (location.pathname === '/platform' || location.pathname === '/product'));
+                      pathname === item.path ||
+                      (item.path === '/product' && (pathname === '/platform' || pathname === '/product'));
 
                     return (
                       <Link
@@ -297,7 +300,7 @@ export function Navbar() {
 
           {/* Other Nav Items */}
           {otherNavItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            const isActive = pathname === item.path;
             return (
               <Link
                 key={item.name}
@@ -319,7 +322,7 @@ export function Navbar() {
           <Link
             to="/updates"
             className={`text-sm font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 ${
-              location.pathname.startsWith('/updates')
+              pathname.startsWith('/updates')
                 ? 'bg-[#071B33] text-white shadow-xs'
                 : 'bg-[#EEF7FF] border border-[#DCE8F5] text-[#10233F] hover:text-[#1267E5] hover:bg-[#E7F2FF]'
             }`}
@@ -379,8 +382,8 @@ export function Navbar() {
                 {productModules.map((item) => {
                   const Icon = item.icon;
                   const isActive = 
-                    location.pathname === item.path || 
-                    (item.path === '/product' && (location.pathname === '/platform' || location.pathname === '/product'));
+                    pathname === item.path ||
+                    (item.path === '/product' && (pathname === '/platform' || pathname === '/product'));
                   return (
                     <Link
                       key={item.name}
@@ -403,7 +406,7 @@ export function Navbar() {
 
           {/* Other Nav Items */}
           {otherNavItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            const isActive = pathname === item.path;
             return (
               <Link
                 key={item.name}
@@ -424,9 +427,9 @@ export function Navbar() {
           <Link
             to="/updates"
             onClick={() => setMenuOpen(false)}
-            aria-current={location.pathname.startsWith('/updates') ? 'page' : undefined}
+            aria-current={pathname.startsWith('/updates') ? 'page' : undefined}
             className={`text-base font-semibold py-3 border-b border-[#DCE8F5] text-left transition-colors flex items-center justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 ${
-              location.pathname.startsWith('/updates')
+              pathname.startsWith('/updates')
                 ? 'text-[#10233F] font-bold pl-2 border-l-2 border-[#1267E5]'
                 : 'text-[#52667F] hover:text-[#10233F]'
             }`}
@@ -452,4 +455,3 @@ export function Navbar() {
     </>
   );
 }
-
