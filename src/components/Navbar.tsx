@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from './RouterLink';
 import { 
   Menu, 
   X, 
-  Wind, 
   ChevronDown, 
   Calendar, 
   Radio, 
@@ -203,12 +203,17 @@ export function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 bg-white/90 backdrop-blur-md border-b border-[#DCE8F5] shadow-xs pointer-events-auto">
         <Link 
           to="/" 
-          className="flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 rounded-lg p-1"
+          aria-label="Joya Fleet home"
+          className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 rounded-lg p-1"
         >
-          <div className="bg-[#002D70] text-white p-1.5 rounded-lg shadow-xs">
-            <Wind size={18} aria-hidden="true" />
-          </div>
-          <span className="font-bold text-[#10233F] tracking-tight text-lg">Joya Fleet</span>
+          <Image
+            src="/logo/logo.png"
+            alt="Joya Fleet"
+            width={774}
+            height={271}
+            preload
+            className="h-8 sm:h-9 w-auto"
+          />
         </Link>
 
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 bg-[#F5F9FE] border border-[#DCE8F5] rounded-xl px-2 py-1.5 items-center gap-1 shadow-xs">
