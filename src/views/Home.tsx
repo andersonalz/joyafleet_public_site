@@ -9,7 +9,7 @@ import {
   Settings, BarChart3, Radio, Layers, FileText, 
   Check 
 } from 'lucide-react';
-import { HeroBackground } from '../components/HeroBackground';
+import { AviationHero } from '../components/AviationHero';
 
 export default function Home() {
   // Configurable Product Screenshots Placeholders
@@ -122,61 +122,7 @@ export default function Home() {
   return (
     <MotionConfig reducedMotion="user">
       {/* SECTION 1: HERO SECTION */}
-      <section id="hero" className="w-full min-h-screen relative isolate pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 overflow-hidden flex flex-col items-center justify-center text-center bg-[#071E3D] bg-gradient-to-b from-[#071E3D] via-[#0A2E5C] to-[#0D3B73] text-white m-0">
-        {/* Aviation Atmospheric Background Glows & Grid */}
-        <HeroBackground />
-
-        <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 relative z-10 flex flex-col items-center">
-          <div 
-            data-aos="fade-down"
-            data-aos-duration="400"
-            className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#1267E5]/20 text-[#38BDF8] border border-[#38BDF8]/30 rounded-lg text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md"
-          >
-            <Radio size={12} className="text-[#38BDF8]" aria-hidden="true" /> 
-            Cloud-Based Flight Operations Platform
-          </div>
-          
-          <div 
-            className="bg-white/95 backdrop-blur-2xl border border-white/80 p-8 sm:p-12 lg:p-16 rounded-3xl shadow-2xl shadow-[#071E3D]/40 w-full max-w-7xl mx-auto flex flex-col items-center text-gray-900"
-          >
-            <h1 
-              data-aos="fade-up"
-              data-aos-duration="400"
-              className="text-4xl sm:text-6xl font-bold text-gray-950 leading-[1.1] mb-6 tracking-tight"
-            >
-              Flight Management Software<br />
-              <span className="text-[#1267E5]">Built Around Real Flight Operations</span>
-            </h1>
-            
-            <p className="text-lg sm:text-xl text-gray-800 max-w-3xl mb-4 leading-relaxed font-normal">
-              JoyaFleet connects scheduling, operational coordination, crew management, dispatch workflows, flight records and reporting in one connected aviation platform.
-            </p>
-
-            <p className="text-base text-gray-600 max-w-2xl mb-8 font-normal leading-relaxed">
-              Designed for airlines and flight operations teams that need better visibility, structured workflows and connected operational data throughout the flight lifecycle.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center w-full mb-8">
-              <Link 
-                to="/contact?intent=demo" 
-                className="w-full sm:w-auto bg-[#EE1C25] hover:bg-[#D4151D] text-white font-bold px-8 py-3.5 rounded-lg text-base transition-all shadow-lg shadow-[#EE1C25]/25 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EE1C25] focus-visible:ring-offset-2"
-              >
-                Request a Demo
-              </Link>
-              <Link 
-                to="/platform" 
-                className="w-full sm:w-auto flex items-center justify-center gap-2 text-gray-900 text-base font-semibold px-8 py-3.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 shadow-xs"
-              >
-                Explore the Platform <ArrowRight size={16} aria-hidden="true" />
-              </Link>
-            </div>
-
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest font-mono">
-              Cloud Platform • Flight Operations • Crew & Dispatch • Reporting
-            </p>
-          </div>
-        </div>
-      </section>
+      <AviationHero />
 
       {/* SECTION 2: EXECUTIVE VALUE PROPOSITION */}
       <section id="executive-value" className="py-20 sm:py-28 relative isolate overflow-hidden w-full">
