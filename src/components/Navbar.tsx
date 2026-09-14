@@ -200,23 +200,34 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 bg-white/90 backdrop-blur-md border-b border-[#DCE8F5] shadow-xs pointer-events-auto">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 bg-[#061b3a]/94 backdrop-blur-xl border-b border-sky-300/20 shadow-[0_8px_28px_rgba(1,14,36,0.34)] pointer-events-auto">
         <Link 
           to="/" 
           aria-label="Joya Fleet home"
-          className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 rounded-lg p-1"
+          className="flex items-center rounded-lg p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#061b3a]"
         >
-          <Image
-            src="/logo/logo.png"
-            alt="Joya Fleet"
-            width={774}
-            height={271}
-            preload
-            className="h-8 sm:h-9 w-auto"
-          />
+          <span className="relative block h-8 w-[91px] sm:h-9 sm:w-[103px]">
+            <Image
+              src="/logo/logo.png"
+              alt="Joya Fleet"
+              width={774}
+              height={271}
+              preload
+              className="absolute inset-0 h-full w-auto"
+            />
+            <Image
+              src="/logo/logo.png"
+              alt=""
+              aria-hidden="true"
+              width={774}
+              height={271}
+              preload
+              className="absolute inset-0 h-full w-auto brightness-0 invert [-webkit-clip-path:inset(0_23%_0_0)] [clip-path:inset(0_23%_0_0)]"
+            />
+          </span>
         </Link>
 
-        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 bg-[#F5F9FE] border border-[#DCE8F5] rounded-xl px-2 py-1.5 items-center gap-1 shadow-xs">
+        <div className="hidden xl:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 rounded-xl border border-sky-200/20 bg-white/10 px-2 py-1.5 shadow-[0_8px_20px_rgba(0,10,33,0.2)] backdrop-blur-md">
           {/* Product Dropdown */}
           <div 
             ref={dropdownRef}
@@ -232,8 +243,8 @@ export function Navbar() {
               aria-controls="product-dropdown-menu"
               className={`text-sm font-semibold px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 ${
                 isProductActive 
-                  ? 'bg-[#071B33] text-white' 
-                  : 'text-[#52667F] hover:text-[#10233F] hover:bg-[#EEF7FF]'
+                  ? 'bg-white/20 text-white'
+                  : 'text-sky-100/85 hover:bg-white/10 hover:text-white'
               }`}
             >
               <span>Product</span>
@@ -246,11 +257,11 @@ export function Navbar() {
             {productDropdownOpen && (
               <div
                 id="product-dropdown-menu"
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[380px] sm:w-[420px] bg-white/98 backdrop-blur-2xl border border-[#DCE8F5] rounded-xl shadow-2xl p-2.5 z-50 animate-in fade-in zoom-in-95 duration-150"
+                className="absolute top-full left-1/2 z-50 mt-3 w-[380px] -translate-x-1/2 rounded-xl border border-sky-200/20 bg-[#071f45]/98 p-2.5 shadow-2xl backdrop-blur-2xl animate-in fade-in zoom-in-95 duration-150 sm:w-[420px]"
               >
-                <div className="px-3 py-2 text-[11px] font-bold tracking-wider text-[#52667F] uppercase border-b border-[#DCE8F5] mb-1 flex items-center justify-between">
+                <div className="mb-1 flex items-center justify-between border-b border-sky-100/15 px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-sky-100/70">
                   <span>Product Modules</span>
-                  <span className="text-[10px] font-mono font-normal text-[#52667F]">7 Sections</span>
+                  <span className="font-mono text-[10px] font-normal text-sky-100/55">7 Sections</span>
                 </div>
 
                 <div className="flex flex-col gap-0.5">
@@ -267,14 +278,14 @@ export function Navbar() {
                         onClick={() => setProductDropdownOpen(false)}
                         className={`group flex items-start gap-3 p-2.5 rounded-lg transition-all ${
                           isActive 
-                            ? 'bg-[#071B33] text-white shadow-xs' 
-                            : 'text-[#10233F] hover:bg-[#EEF7FF] hover:text-[#1267E5]'
+                            ? 'bg-white/15 text-white shadow-xs'
+                            : 'text-sky-50 hover:bg-white/10 hover:text-white'
                         }`}
                       >
                         <div className={`p-2 rounded-md shrink-0 mt-0.5 transition-colors ${
                           isActive 
-                            ? 'bg-[#1267E5] text-white' 
-                            : 'bg-[#EEF7FF] text-[#1267E5] group-hover:bg-[#1267E5] group-hover:text-white'
+                            ? 'bg-sky-400 text-[#061b3a]'
+                            : 'bg-sky-300/15 text-sky-200 group-hover:bg-sky-300 group-hover:text-[#061b3a]'
                         }`}>
                           <Icon size={16} aria-hidden="true" />
                         </div>
@@ -283,14 +294,14 @@ export function Navbar() {
                             {item.name}
                             {item.path === '/product' && (
                               <span className={`text-[9px] font-mono uppercase px-1.5 py-0.2 rounded ${
-                                isActive ? 'bg-white/20 text-white' : 'bg-[#EEF7FF] text-[#1267E5]'
+                                isActive ? 'bg-white/20 text-white' : 'bg-sky-300/15 text-sky-200'
                               }`}>
                                 Overview
                               </span>
                             )}
                           </span>
                           <span className={`text-[11px] leading-tight mt-0.5 ${
-                            isActive ? 'text-[#AFC0D2]' : 'text-[#52667F] group-hover:text-[#52667F]'
+                            isActive ? 'text-sky-100/70' : 'text-sky-100/65 group-hover:text-sky-50'
                           }`}>
                             {item.desc}
                           </span>
@@ -313,8 +324,8 @@ export function Navbar() {
                 aria-current={isActive ? 'page' : undefined}
                 className={`text-sm font-semibold px-3.5 py-1.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 ${
                   isActive 
-                    ? 'bg-[#071B33] text-white' 
-                    : 'text-[#52667F] hover:text-[#10233F] hover:bg-[#EEF7FF]'
+                    ? 'bg-white/20 text-white'
+                    : 'text-sky-100/85 hover:bg-white/10 hover:text-white'
                 }`}
               >
                 {item.name}
@@ -323,13 +334,13 @@ export function Navbar() {
           })}
         </div>
 
-        <div className="hidden md:flex items-center gap-2.5">
+        <div className="hidden xl:flex items-center gap-2.5">
           <Link
             to="/updates"
             className={`text-sm font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 ${
               pathname.startsWith('/updates')
-                ? 'bg-[#071B33] text-white shadow-xs'
-                : 'bg-[#EEF7FF] border border-[#DCE8F5] text-[#10233F] hover:text-[#1267E5] hover:bg-[#E7F2FF]'
+                ? 'bg-white/20 text-white shadow-xs'
+                : 'border border-sky-200/20 bg-white/10 text-sky-50 hover:bg-white/15 hover:text-white'
             }`}
           >
             <Sparkles size={14} className="text-[#39BFF8]" />
@@ -350,7 +361,7 @@ export function Navbar() {
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation-menu"
           aria-label="Toggle navigation menu"
-          className="md:hidden text-[#10233F] p-1.5 hover:bg-[#EEF7FF] rounded-lg transition-colors pointer-events-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2"
+          className="xl:hidden rounded-lg p-1.5 text-sky-50 transition-colors hover:bg-white/10 pointer-events-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#061b3a]"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
@@ -358,32 +369,50 @@ export function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div 
-          ref={mobileMenuRef}
-          id="mobile-navigation-menu" 
-          className="fixed top-0 left-0 right-0 max-h-screen overflow-y-auto z-40 bg-white/98 backdrop-blur-xl pt-24 pb-8 px-5 shadow-lg flex flex-col gap-2 md:hidden pointer-events-auto border-b border-[#DCE8F5]"
-        >
+        <>
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            className="fixed inset-0 z-40 bg-[#020e22]/65 backdrop-blur-[2px] xl:hidden"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div
+            ref={mobileMenuRef}
+            id="mobile-navigation-menu"
+            className="fixed inset-y-0 right-0 z-[60] flex w-[min(23rem,calc(100vw-2rem))] flex-col gap-2 overflow-y-auto border-l border-sky-200/20 bg-[#061b3a]/98 px-5 py-6 shadow-[-16px_0_36px_rgba(0,10,33,0.4)] backdrop-blur-xl animate-in slide-in-from-right duration-200 pointer-events-auto xl:hidden"
+          >
+          <div className="mb-2 flex items-center justify-between border-b border-sky-100/15 pb-4">
+            <span className="text-sm font-bold uppercase tracking-[0.16em] text-sky-100">Navigation</span>
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close navigation menu"
+              className="rounded-lg p-1.5 text-sky-50 transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-200"
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+          </div>
           {/* Mobile Product Accordion */}
-          <div className="border-b border-[#DCE8F5] pb-2">
+          <div className="border-b border-sky-100/15 pb-2">
             <button
               type="button"
               onClick={() => setMobileProductExpanded(!mobileProductExpanded)}
-              className="w-full flex items-center justify-between py-2.5 text-base font-bold text-[#10233F] focus-visible:outline-none"
+              className="flex w-full items-center justify-between py-2.5 text-base font-bold text-white focus-visible:outline-none"
             >
               <span className="flex items-center gap-2">
                 <span>Product</span>
-                <span className="text-[10px] font-mono bg-[#EEF7FF] text-[#1267E5] px-2 py-0.5 rounded-md font-bold">
+                <span className="rounded-md bg-sky-300/15 px-2 py-0.5 font-mono text-[10px] font-bold text-sky-200">
                   7 Modules
                 </span>
               </span>
               <ChevronDown 
                 size={18} 
-                className={`transition-transform duration-200 text-[#52667F] ${mobileProductExpanded ? 'rotate-180' : ''}`}
+                className={`text-sky-100/70 transition-transform duration-200 ${mobileProductExpanded ? 'rotate-180' : ''}`}
               />
             </button>
 
             {mobileProductExpanded && (
-              <div className="mt-1 ml-1 pl-3 border-l-2 border-[#DCE8F5] flex flex-col gap-1 my-1">
+              <div className="my-1 ml-1 mt-1 flex flex-col gap-1 border-l-2 border-sky-200/20 pl-3">
                 {productModules.map((item) => {
                   const Icon = item.icon;
                   const isActive = 
@@ -396,11 +425,11 @@ export function Navbar() {
                       onClick={() => setMenuOpen(false)}
                       className={`flex items-center gap-2.5 py-2 px-2.5 rounded-xl text-xs font-semibold transition-colors ${
                         isActive
-                          ? 'bg-[#071B33] text-white font-bold'
-                          : 'text-[#52667F] hover:text-[#10233F] hover:bg-[#EEF7FF]'
+                          ? 'bg-white/15 text-white font-bold'
+                          : 'text-sky-100/75 hover:bg-white/10 hover:text-white'
                       }`}
                     >
-                      <Icon size={14} className="shrink-0 text-[#1267E5]" />
+                      <Icon size={14} className="shrink-0 text-sky-300" />
                       <span>{item.name}</span>
                     </Link>
                   );
@@ -418,10 +447,10 @@ export function Navbar() {
                 to={item.path}
                 onClick={() => setMenuOpen(false)}
                 aria-current={isActive ? 'page' : undefined}
-                className={`text-base font-semibold py-3 border-b border-[#DCE8F5] text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 ${
+                className={`border-b border-sky-100/15 py-3 text-left text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#061b3a] ${
                   isActive 
-                    ? 'text-[#10233F] font-bold pl-2 border-l-2 border-[#1267E5]' 
-                    : 'text-[#52667F] hover:text-[#10233F]'
+                    ? 'border-l-2 border-sky-300 pl-2 font-bold text-white'
+                    : 'text-sky-100/75 hover:text-white'
                 }`}
               >
                 {item.name}
@@ -433,17 +462,17 @@ export function Navbar() {
             to="/updates"
             onClick={() => setMenuOpen(false)}
             aria-current={pathname.startsWith('/updates') ? 'page' : undefined}
-            className={`text-base font-semibold py-3 border-b border-[#DCE8F5] text-left transition-colors flex items-center justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 ${
+            className={`flex items-center justify-between border-b border-sky-100/15 py-3 text-left text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#061b3a] ${
               pathname.startsWith('/updates')
-                ? 'text-[#10233F] font-bold pl-2 border-l-2 border-[#1267E5]'
-                : 'text-[#52667F] hover:text-[#10233F]'
+                ? 'border-l-2 border-sky-300 pl-2 font-bold text-white'
+                : 'text-sky-100/75 hover:text-white'
             }`}
           >
             <span className="flex items-center gap-2">
               <Sparkles size={16} className="text-[#39BFF8]" />
               <span>Updates</span>
             </span>
-            <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-md bg-[#EEF7FF] text-[#1267E5]">
+            <span className="rounded-md bg-sky-300/15 px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-sky-200">
               New Releases
             </span>
           </Link>
@@ -455,7 +484,8 @@ export function Navbar() {
           >
             Request a Demo
           </Link>
-        </div>
+          </div>
+        </>
       )}
     </>
   );

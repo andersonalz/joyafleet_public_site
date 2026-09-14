@@ -59,7 +59,7 @@ export function AviationHero() {
     <section id="hero" className="relative isolate overflow-hidden bg-[#061b3a] pb-14 pt-28 text-white sm:pb-16 sm:pt-32 lg:min-h-[780px] lg:pb-20 lg:pt-36">
       <div aria-hidden="true" className="absolute inset-0">
         <Image
-          src="/images/hero-aviation-operations-v4.png"
+          src="/images/hero-aviation-operations-ultrawide.png"
           alt=""
           fill
           priority
@@ -69,7 +69,7 @@ export function AviationHero() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,20,48,0.98)_0%,rgba(3,20,48,0.91)_32%,rgba(3,20,48,0.48)_59%,rgba(3,20,48,0.1)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,15,37,0.52)_0%,transparent_45%)]" />
         <svg
-          viewBox="0 0 1672 941"
+          viewBox="0 0 1916 821"
           preserveAspectRatio="xMidYMid slice"
           className="pointer-events-none absolute inset-0 size-full"
           fill="none"
@@ -89,19 +89,20 @@ export function AviationHero() {
               <stop offset="1" stopColor="#27B8FF" />
             </radialGradient>
           </defs>
-          <g className="hero-regional-network">
-            {regionalLinks.map((d) => <path key={d} className="hero-regional-link" d={d} />)}
-            {regionalNodes.map((node) => (
-              <circle
-                key={`${node.x}-${node.y}`}
-                className={`hero-regional-node hero-regional-node--${node.depth}`}
-                cx={node.x}
-                cy={node.y}
-                r={node.r}
-              />
-            ))}
-          </g>
-          <g className="hero-routes" filter="url(#hero-route-glow)">
+          <g transform="translate(205 0) scale(1 0.88)">
+            <g className="hero-regional-network">
+              {regionalLinks.map((d) => <path key={d} className="hero-regional-link" d={d} />)}
+              {regionalNodes.map((node) => (
+                <circle
+                  key={`${node.x}-${node.y}`}
+                  className={`hero-regional-node hero-regional-node--${node.depth}`}
+                  cx={node.x}
+                  cy={node.y}
+                  r={node.r}
+                />
+              ))}
+            </g>
+            <g className="hero-routes" filter="url(#hero-route-glow)">
             {/* Requested continent-to-continent operational connections. */}
             {/* North America → Europe */}
             <path className="hero-route hero-route--slow" d="M878 258C958 184 1085 214 1163 246" />
@@ -111,8 +112,8 @@ export function AviationHero() {
             <path className="hero-route" d="M1376 270C1310 154 1175 160 1080 270C1029 330 991 390 972 438" />
             {/* Europe → Australia */}
             <path className="hero-route hero-route--slow" d="M1163 246C1257 294 1394 360 1492 490" />
-          </g>
-          <g filter="url(#hero-route-glow)">
+            </g>
+            <g filter="url(#hero-route-glow)">
             {/* One central node per visible continent. */}
             <circle className="hero-map-node" cx="878" cy="258" r="7" fill="url(#hero-node-fill)" />
             <circle className="hero-map-node hero-map-node--late" cx="972" cy="438" r="7" fill="url(#hero-node-fill)" />
@@ -120,6 +121,7 @@ export function AviationHero() {
             <circle className="hero-map-node hero-map-node--late" cx="1181" cy="382" r="7" fill="url(#hero-node-fill)" />
             <circle className="hero-map-node" cx="1376" cy="270" r="7" fill="url(#hero-node-fill)" />
             <circle className="hero-map-node hero-map-node--delayed" cx="1492" cy="490" r="7" fill="url(#hero-node-fill)" />
+            </g>
           </g>
         </svg>
       </div>
