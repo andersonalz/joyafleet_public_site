@@ -57,24 +57,27 @@ const regionalNodes = [
 export function AviationHero() {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-[#061b3a] pb-14 pt-28 text-white sm:pb-16 sm:pt-32 lg:min-h-[780px] lg:pb-20 lg:pt-36">
-      <div aria-hidden="true" className="absolute inset-0">
-        <Image
-          src="/images/hero-aviation-operations-ultrawide.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,20,48,0.98)_0%,rgba(3,20,48,0.91)_32%,rgba(3,20,48,0.48)_59%,rgba(3,20,48,0.1)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(2,15,37,0.52)_0%,transparent_45%)]" />
-        <svg
-          viewBox="0 0 1916 821"
-          preserveAspectRatio="xMidYMid slice"
-          className="pointer-events-none absolute inset-0 size-full"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 top-16 sm:top-[76px]">
+        {/* This fixed-ratio stage keeps the bitmap and SVG in the exact same coordinate system. */}
+        <div className="absolute inset-x-0 top-0 aspect-[1916/821]">
+          <Image
+            src="/images/hero-aviation-operations-ultrawide.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,20,48,0.98)_0%,rgba(3,20,48,0.9)_34%,rgba(3,20,48,0.35)_58%,transparent_78%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,27,58,0.32)_0%,rgba(6,27,58,0.12)_9%,transparent_22%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(0deg,#061b3a_0%,rgba(6,27,58,0.9)_12%,rgba(6,27,58,0.42)_29%,transparent_50%)]" />
+          <svg
+            viewBox="0 0 1916 821"
+            preserveAspectRatio="xMidYMid meet"
+            className="pointer-events-none absolute inset-0 size-full"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
           <defs>
             <filter id="hero-route-glow" x="-40%" y="-80%" width="180%" height="260%">
               <feGaussianBlur stdDeviation="4" result="blur" />
@@ -123,7 +126,8 @@ export function AviationHero() {
             <circle className="hero-map-node hero-map-node--delayed" cx="1492" cy="490" r="7" fill="url(#hero-node-fill)" />
             </g>
           </g>
-        </svg>
+          </svg>
+        </div>
       </div>
 
       <div className="relative mx-auto flex w-full max-w-[1600px] px-5 sm:px-8 lg:min-h-[564px] lg:px-14 xl:px-16">
@@ -131,12 +135,12 @@ export function AviationHero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="relative z-10 my-auto max-w-[610px] lg:pb-7"
+          className="relative z-10 my-auto max-w-[610px] lg:max-w-[min(48%,610px)] lg:pb-7"
         >
-          <div className="mb-7 inline-flex items-center gap-2 rounded-lg border border-sky-300/35 bg-sky-500/10 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-300 shadow-[0_0_24px_rgba(34,174,255,0.12)] sm:text-xs">
+          <div className="mb-7 hidden items-center gap-2 rounded-lg border border-sky-300/35 bg-sky-500/10 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-300 shadow-[0_0_24px_rgba(34,174,255,0.12)] xl:inline-flex xl:text-xs">
             <Radio size={14} aria-hidden="true" /> Cloud-based flight operations platform
           </div>
-          <h1 className="max-w-[650px] text-[clamp(2.65rem,5.05vw,4.4rem)] font-bold leading-[1.05] tracking-[-0.045em] text-white">
+          <h1 className="max-w-[650px] text-[clamp(2.4rem,5.05vw,4.4rem)] font-bold leading-[1.05] tracking-[-0.045em] text-white">
             Fleet &amp; Crew Management Software
             <span className="mt-2 block bg-gradient-to-r from-[#169df5] via-[#43bcff] to-[#8cdfff] bg-clip-text text-transparent">
               Built for Modern Flight Operations
