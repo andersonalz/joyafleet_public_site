@@ -127,6 +127,44 @@ main, #main-content, main section {
   transform: translateY(-2px);
 }
 
+@keyframes joya-fragment-story {
+  0%, 12% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 1; }
+  36%, 56% { transform: translate3d(var(--scatter-x), var(--scatter-y), 0) rotate(var(--scatter-r)) scale(1); opacity: 1; }
+  82% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 0; }
+}
+
+.joya-launch-sequence {
+  position: fixed;
+  top: 15px;
+  left: 24px;
+  z-index: 70;
+  width: 104px;
+  height: 72px;
+  pointer-events: none;
+}
+
+.joya-logo-fragments {
+  position: absolute;
+  filter: drop-shadow(0 7px 10px rgba(0, 10, 33, .46));
+}
+
+.joya-logo-fragments { inset: 4px auto auto 0; width: 103px; height: 42px; }
+.joya-logo-fragments .joya-fragment { animation: joya-fragment-story 3.2s cubic-bezier(.5, 0, .2, 1) both; transform-origin: center; }
+.joya-fragment-j { --scatter-x: -44px; --scatter-y: 28px; --scatter-r: -28deg; }
+.joya-fragment-o { --scatter-x: 8px; --scatter-y: -38px; --scatter-r: 20deg; }
+.joya-fragment-y { --scatter-x: 42px; --scatter-y: 30px; --scatter-r: 34deg; }
+.joya-fragment-a { --scatter-x: 67px; --scatter-y: -24px; --scatter-r: -24deg; }
+
+@media (min-width: 640px) {
+  .joya-launch-sequence { top: 17px; left: 32px; width: 116px; }
+  .joya-logo-fragments { width: 116px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .joya-logo-fragments .joya-fragment { animation-duration: .01ms; }
+}
+
 /* Scroll-Driven Slide & Reveal Animations with strictly contained translation distances */
 .scroll-reveal,
 .scroll-slide-up {

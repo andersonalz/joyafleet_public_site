@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from '../components/RouterLink';
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { useSEO } from '../hooks/useSEO';
@@ -16,7 +16,9 @@ import {
   Activity,
   Compass,
   Sliders,
-  ChevronRight
+  ChevronRight,
+  Maximize2,
+  X
 } from 'lucide-react';
 import { HeroBackground } from '../components/HeroBackground';
 
@@ -38,7 +40,7 @@ const PRODUCT_PLACEHOLDERS: Record<string, ProductVisual> = {
     description: "Visual schedule planning with recurring and ad-hoc flights, aircraft context, time zones and draft or published states.",
     aspectRatio: "16:10",
     alt: "Product visual reserved for the JoyaFleet flight scheduling interface",
-    imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80"
+    imageUrl: "/images/flight-scheduling-interface.png"
   },
   operations: {
     id: "operations",
@@ -46,7 +48,7 @@ const PRODUCT_PLACEHOLDERS: Record<string, ProductVisual> = {
     description: "Operational trips, assignments, dispatch release workflows, actual times and journey records.",
     aspectRatio: "16:10",
     alt: "Product visual reserved for the JoyaFleet operations and dispatch interface",
-    imageUrl: "https://images.unsplash.com/photo-1519074069444-1ba4eae16748?auto=format&fit=crop&w=1200&q=80"
+    imageUrl: "/images/flight-watch-interface.png"
   },
   crew: {
     id: "crew",
@@ -54,7 +56,7 @@ const PRODUCT_PLACEHOLDERS: Record<string, ProductVisual> = {
     description: "Crew schedules, duties, qualifications, endorsements and FTL visibility.",
     aspectRatio: "16:10",
     alt: "Product visual reserved for the JoyaFleet crew management and FTL interface",
-    imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623266010b?auto=format&fit=crop&w=1200&q=80"
+    imageUrl: "/images/crew-planning-interface.png"
   },
   fleet: {
     id: "fleet",
@@ -62,7 +64,7 @@ const PRODUCT_PLACEHOLDERS: Record<string, ProductVisual> = {
     description: "Aircraft operational profiles, availability, scheduled maintenance, AOG periods and work orders.",
     aspectRatio: "16:10",
     alt: "Product visual reserved for the JoyaFleet fleet and maintenance planning interface",
-    imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80"
+    imageUrl: "/images/fleet-maintenance-interface.png"
   },
   reporting: {
     id: "reporting",
@@ -70,7 +72,7 @@ const PRODUCT_PLACEHOLDERS: Record<string, ProductVisual> = {
     description: "Configurable report filters, reusable templates and PDF, Excel or CSV outputs.",
     aspectRatio: "16:10",
     alt: "Product visual reserved for the JoyaFleet reporting and analytics interface",
-    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
+    imageUrl: "/images/reports-interface.png"
   },
   integrations: {
     id: "integrations",
@@ -119,6 +121,19 @@ interface SupportConfig {
 }
 
 export default function Platform() {
+  const [activeVisual, setActiveVisual] = useState<ProductVisual | null>(null);
+
+  useEffect(() => {
+    if (!activeVisual) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveVisual(null);
+    };
+
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [activeVisual]);
+
   // Page SEO Metadata setup
   useSEO({
     title: "JoyaFleet Platform | Flight Management Software for Aviation Operations",
@@ -734,13 +749,25 @@ export default function Platform() {
 
                         {/* Mockup Body Container */}
                         {module.visual.imageUrl ? (
-                          <img 
-                            id={module.visual.id}
-                            src={module.visual.imageUrl} 
-                            alt={module.visual.alt} 
-                            className="w-full h-auto object-cover rounded-xl aspect-[16/10] border border-gray-200 shadow-xs" 
-                            referrerPolicy="no-referrer" 
-                          />
+                          <button
+                            type="button"
+                            onClick={() => setActiveVisual(module.visual)}
+                            className="group relative block w-full overflow-hidden rounded-xl border border-gray-200 shadow-xs cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2"
+                            aria-label={`Enlarge ${module.visual.title}`}
+                          >
+                            <img
+                              id={module.visual.id}
+                              src={module.visual.imageUrl}
+                              alt={module.visual.alt}
+                              className="w-full h-auto object-cover aspect-[16/10] transition-transform duration-300 group-hover:scale-[1.02]"
+                              referrerPolicy="no-referrer"
+                            />
+                            <span className="absolute inset-0 flex items-center justify-center bg-[#071E3D]/0 transition-colors duration-300 group-hover:bg-[#071E3D]/30">
+                              <span className="flex items-center gap-2 rounded-lg bg-white/95 px-3 py-2 text-xs font-bold text-[#10233F] opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                                <Maximize2 size={15} aria-hidden="true" /> Enlarge image
+                              </span>
+                            </span>
+                          </button>
                         ) : (
                           <div className="bg-gradient-to-b from-[#071B33] to-[#0D2E55] text-white rounded-xl aspect-[16/10] p-6 flex flex-col justify-between relative overflow-hidden border border-[#1267E5]/30">
                             <div className="absolute inset-0 bg-radial-gradient from-[#1267E5]/20 to-transparent pointer-events-none" />
@@ -1065,6 +1092,44 @@ export default function Platform() {
         </section>
 
       </div>
+      <AnimatePresence>
+        {activeVisual?.imageUrl && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#071B33]/85 p-4 sm:p-8"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Enlarged ${activeVisual.title}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveVisual(null)}
+          >
+            <motion.div
+              className="relative flex max-h-full w-full max-w-6xl flex-col rounded-2xl bg-white p-3 shadow-2xl"
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setActiveVisual(null)}
+                className="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#071B33]/90 text-white shadow-lg transition-colors hover:bg-[#1267E5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2"
+                aria-label="Close enlarged image"
+                autoFocus
+              >
+                <X size={20} aria-hidden="true" />
+              </button>
+              <img
+                src={activeVisual.imageUrl}
+                alt={activeVisual.alt}
+                className="max-h-[82vh] w-full rounded-xl object-contain"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </MotionConfig>
   );
 }

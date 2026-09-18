@@ -23,12 +23,14 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
   const [mobileProductExpanded, setMobileProductExpanded] = useState(true);
+  const [isLogoFlightActive, setIsLogoFlightActive] = useState(false);
   const pathname = usePathname() ?? '/';
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownTimeout = useRef<NodeJS.Timeout | null>(null);
+  const logoFlightTimeout = useRef<NodeJS.Timeout | null>(null);
   const prevMenuOpen = useRef(menuOpen);
 
   const productModules = [
@@ -109,6 +111,10 @@ export function Navbar() {
       document.body.style.overflow = '';
     };
   }, [menuOpen]);
+
+  useEffect(() => () => {
+    if (logoFlightTimeout.current) clearTimeout(logoFlightTimeout.current);
+  }, []);
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -192,6 +198,16 @@ export function Navbar() {
     }, 150);
   };
 
+  const playLogoAssembly = () => {
+    if (isLogoFlightActive) return;
+
+    setIsLogoFlightActive(true);
+    logoFlightTimeout.current = setTimeout(() => {
+      setIsLogoFlightActive(false);
+      logoFlightTimeout.current = null;
+    }, 3200);
+  };
+
   const isProductActive = 
     pathname === '/product' ||
     pathname === '/platform' ||
@@ -203,10 +219,14 @@ export function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 bg-[#061b3a]/94 backdrop-blur-xl border-b border-sky-300/20 shadow-[0_8px_28px_rgba(1,14,36,0.34)] pointer-events-auto">
         <Link 
           to="/" 
-          aria-label="Joya Fleet home"
+          aria-label="Animate the Joya Fleet logo"
           className="flex items-center rounded-lg p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#061b3a]"
+          onClick={(event) => {
+            event.preventDefault();
+            playLogoAssembly();
+          }}
         >
-          <span className="relative block h-8 w-[91px] sm:h-9 sm:w-[103px]">
+          <span className={`relative block h-8 w-[91px] transition-opacity duration-300 sm:h-9 sm:w-[103px] ${isLogoFlightActive ? 'opacity-0' : 'opacity-100'}`}>
             <Image
               src="/logo/logo.png"
               alt="Joya Fleet"
@@ -226,6 +246,17 @@ export function Navbar() {
             />
           </span>
         </Link>
+
+        {isLogoFlightActive && (
+          <div className="joya-launch-sequence" aria-hidden="true">
+            <svg className="joya-logo-fragments" viewBox="0 0 126 48" fill="none">
+              <path className="joya-fragment joya-fragment-j" d="M7 12h24v21c0 7-5 10-11 10S9 40 9 34" stroke="#C9E7FF" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+              <path className="joya-fragment joya-fragment-o" d="M42 24a12 12 0 1 1 24 0 12 12 0 0 1-24 0Z" stroke="#C9E7FF" strokeWidth="4" strokeLinecap="round" />
+              <path className="joya-fragment joya-fragment-y" d="m74 11 9 14 9-14m-9 14v14" stroke="#C9E7FF" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+              <path className="joya-fragment joya-fragment-a" d="m100 38 12-27 12 27-12-8-12 8Z" fill="#EE1C25" />
+            </svg>
+          </div>
+        )}
 
         <div className="hidden xl:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 rounded-xl border border-sky-200/20 bg-white/10 px-2 py-1.5 shadow-[0_8px_20px_rgba(0,10,33,0.2)] backdrop-blur-md">
           {/* Product Dropdown */}

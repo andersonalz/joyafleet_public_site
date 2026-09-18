@@ -12,12 +12,9 @@ import {
 } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from '../components/RouterLink';
-import { HeroBackground } from '../components/HeroBackground';
 import {
   ArrowRight,
   CheckCircle2,
-  ChevronRight,
-  Sparkles,
   Send,
   MapPin,
   Clock,
@@ -25,7 +22,8 @@ import {
   Headphones,
   Check,
   Radio,
-  FileText
+  FileText,
+  Mail
 } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 
@@ -95,7 +93,7 @@ const INTENT_CONTENT: Record<AllowedIntent, IntentDetails> = {
   general: {
     heading: 'Contact Joya Fleet',
     subheading: 'Direct Connection with Aviation Operations Specialists',
-    description: 'Connect with our team in Shiraz, Iran to discuss flight scheduling, dispatch, crew tracking, maintenance or integrations.',
+    description: 'Connect with our team to discuss flight scheduling, dispatch, crew tracking, maintenance or integrations.',
     seoTitle: 'Contact Joya Fleet | Airline Operations Requirements',
     seoDescription: 'Contact Joya Fleet about airline scheduling, operations, crew, fleet-planning, reporting or integration requirements.'
   }
@@ -138,7 +136,7 @@ const SCOPE_ITEMS = [
   },
   {
     title: 'Dedicated Support & SLA',
-    description: 'Direct support from our engineering and aviation operations dispatch leads in Shiraz, Iran.'
+    description: 'Direct support from our engineering and aviation operations dispatch leads.'
   },
   {
     title: 'Regulatory & Authority Scoping',
@@ -188,6 +186,8 @@ export default function Contact() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState('');
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [isNewsletterSubmitted, setIsNewsletterSubmitted] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -205,43 +205,19 @@ export default function Contact() {
     setIsSubmitted(true);
   };
 
+  const handleNewsletterSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setIsNewsletterSubmitted(true);
+  };
+
   return (
     <div id="contact-page" className="contact-page w-full pointer-events-auto bg-transparent min-h-screen text-gray-900 font-sans relative isolate">
-      {/* HERO / HEADER SECTION */}
-      <section id="hero" className="w-full min-h-screen relative isolate pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 overflow-hidden flex flex-col items-center justify-center bg-[#071E3D] bg-gradient-to-b from-[#071E3D] via-[#0A2E5C] to-[#0D3B73] text-white m-0 z-10">
-        <HeroBackground />
-        <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
-          
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="inline-flex items-center gap-2 mb-8 text-xs font-semibold text-blue-200 tracking-wider uppercase font-mono bg-[#1267E5]/20 backdrop-blur-md px-4 py-1.5 rounded-lg border border-[#38BDF8]/30 shadow-2xs">
-            <Link to="/" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#38BDF8] focus-visible:outline-none rounded">Home</Link>
-            <ChevronRight size={10} aria-hidden="true" className="text-blue-300" />
-            <span className="text-[#38BDF8] font-bold" aria-current="page">Contact & Inquiry</span>
-          </nav>
-
-          <div className="bg-white/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-10 border border-white/80 shadow-2xl shadow-[#071E3D]/40 max-w-3xl text-left text-gray-900">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#1267E5]/10 text-[#1267E5] border border-[#1267E5]/20 rounded-lg text-xs font-bold uppercase tracking-widest mb-4 font-mono">
-              <Sparkles size={12} aria-hidden="true" className="text-[#1267E5]" /> DIRECT OPERATIONS DESK
-            </span>
-            
-            <h1 className="text-4xl sm:text-6xl font-bold text-gray-950 tracking-tight leading-tight mb-3">
-              {currentIntentDetails.heading}
-            </h1>
-            
-            <p className="text-lg sm:text-xl font-semibold text-[#1267E5] mb-4">
-              {currentIntentDetails.subheading}
-            </p>
-            
-            <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-2xl">
-              {currentIntentDetails.description}
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* MAIN CONTENT — 2 COLUMN WORKSPACE */}
-      <section className="pt-12 sm:pt-16 pb-24 sm:pb-32 relative isolate overflow-hidden w-full">
+      <section className="pt-24 sm:pt-28 pb-24 sm:pb-32 relative isolate overflow-hidden w-full">
         <div className="px-5 sm:px-8 max-w-7xl mx-auto w-full">
+          <div className="mb-8 sm:mb-10">
+            <h1 className="text-4xl sm:text-5xl font-bold text-[#10233F] tracking-tight">Contact</h1>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* COLUMN 1: INTERACTIVE FORM (7 COLS) */}
@@ -264,7 +240,7 @@ export default function Contact() {
                   </div>
 
                   <p className="text-sm sm:text-base text-gray-700 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="font-bold text-gray-950">{formData.fullName}</span> from <span className="font-bold text-gray-950">{formData.company || 'your airline'}</span>. Our flight operations specialist in Shiraz will review your requirements and follow up promptly.
+                    Thank you, <span className="font-bold text-gray-950">{formData.fullName}</span> from <span className="font-bold text-gray-950">{formData.company || 'your airline'}</span>. Our flight operations specialist will review your requirements and follow up promptly.
                   </p>
 
                   <div className="bg-[#1267E5]/5 border border-[#1267E5]/15 rounded-2xl p-4 max-w-md mx-auto text-left font-mono text-xs text-gray-700 space-y-1.5">
@@ -479,7 +455,7 @@ export default function Contact() {
                         <span>Submit Inquiry to Operations Desk</span>
                       </button>
                       <p id="submission-status" role="status" className="text-[11px] text-gray-500 mt-3 text-center font-mono">
-                        Direct dispatch routing • Shiraz Aviation Systems Engineering Hub
+                        Direct dispatch routing • Aviation Systems Engineering Hub
                       </p>
                     </div>
                   </form>
@@ -530,19 +506,19 @@ export default function Contact() {
                       HEADQUARTERS & DISPATCH
                     </span>
                     <h4 className="text-sm font-bold text-white font-mono">
-                      Shiraz Engineering Operations
+                      Aviation Operations Desk
                     </h4>
                   </div>
                 </div>
 
                 <p className="text-xs text-gray-300 leading-relaxed mb-6 font-medium">
-                  Direct engagement with aviation software engineers and operational product leads in Shiraz, Iran.
+                  Direct engagement with aviation software engineers and operational product leads.
                 </p>
 
                 <div className="space-y-3 text-xs font-mono border-t border-white/10 pt-4 text-gray-300">
                   <div className="flex items-center gap-2.5">
                     <MapPin size={14} className="text-[#39BFF8]" />
-                    <span>Shiraz, Fars Province, Iran</span>
+                    <span>Aviation operations support</span>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <Clock size={14} className="text-[#39BFF8]" />
@@ -575,6 +551,63 @@ export default function Contact() {
 
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="newsletter-heading" className="pb-24 sm:pb-32 relative isolate w-full">
+        <div className="px-5 sm:px-8 max-w-7xl mx-auto w-full">
+          <div className="bg-gradient-to-br from-[#071B33] via-[#002D70] to-[#0A2540] text-white rounded-[36px] p-8 sm:p-14 border border-[#1267E5]/30 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden">
+            <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-[#1267E5]/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -left-20 -top-20 w-80 h-80 bg-[#EE1C25]/15 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="max-w-2xl relative z-10">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#39BFF8] block mb-3 font-mono">
+                Stay Informed
+              </span>
+              <h2 id="newsletter-heading" className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+                Join our newsletter
+              </h2>
+              <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed">
+                Get the JoyaFleet monthly newsletter and stay up to date with the latest product news and operational insights.
+              </p>
+            </div>
+
+            <form onSubmit={handleNewsletterSubmit} className="w-full lg:w-auto relative z-10">
+              <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative w-full sm:w-80">
+                  <Mail size={17} aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-200/70" />
+                  <input
+                    id="newsletter-email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    value={newsletterEmail}
+                    onChange={(event) => {
+                      setNewsletterEmail(event.target.value);
+                      setIsNewsletterSubmitted(false);
+                    }}
+                    placeholder="Enter your email address"
+                    className="w-full px-5 py-3.5 pl-11 bg-[#071B33]/80 border border-[#1267E5]/30 rounded-xl text-sm text-white placeholder-blue-200/50 focus:outline-none focus:ring-2 focus:ring-[#39BFF8]"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="px-8 py-3.5 rounded-xl bg-[#EE1C25] hover:bg-[#D4151D] text-white font-bold text-sm transition-all whitespace-nowrap shadow-lg shadow-[#EE1C25]/25 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#071B33]"
+                >
+                  Subscribe
+                </button>
+              </div>
+              <p className="mt-3 max-w-md text-[11px] leading-relaxed text-blue-100/70">
+                By subscribing, you agree to receive the JoyaFleet newsletter. Please review our Privacy Policy to understand how we process personal data.
+              </p>
+              {isNewsletterSubmitted && (
+                <p role="status" className="mt-3 text-xs font-semibold text-emerald-300">
+                  Thank you — your newsletter subscription request has been received.
+                </p>
+              )}
+            </form>
           </div>
         </div>
       </section>

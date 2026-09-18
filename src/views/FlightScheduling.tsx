@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from '../components/RouterLink';
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { useSEO } from '../hooks/useSEO';
@@ -11,9 +12,15 @@ import {
   Sliders,
   ArrowRight,
   Check,
+  ChevronLeft,
   ChevronRight,
   RefreshCw,
-  Sparkles
+  Sparkles,
+  Plane,
+  Clock3,
+  Upload,
+  Maximize2,
+  X
 } from 'lucide-react';
 
 // Product screenshot placeholder definition
@@ -44,16 +51,36 @@ export function ProductVisualFrame({
   imageUrl
 }: ProductVisualFrameProps) {
   const aspectClass = aspectRatio === "16:9" ? "aspect-[16/9]" : "aspect-[16/10]";
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!isExpanded) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsExpanded(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isExpanded]);
 
   if (imageUrl) {
     return (
-      <img
-        id={id}
-        src={imageUrl}
-        alt={alt}
-        referrerPolicy="no-referrer"
-        className={`w-full h-auto object-cover rounded-xl border border-[#1267E5]/20 shadow-xs ${aspectClass}`}
-      />
+      <>
+        <button type="button" onClick={() => setIsExpanded(true)} className="group relative block w-full overflow-hidden rounded-lg border border-[#1267E5]/35 bg-white p-[2px] text-left shadow-[0_5px_18px_rgba(18,103,229,.10)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2" aria-label={`Enlarge ${title}`}>
+          <img id={id} src={imageUrl} alt={alt} referrerPolicy="no-referrer" className={`block w-full h-auto object-cover rounded-[5px] ${aspectClass}`} />
+          <span className="absolute inset-[2px] grid place-items-center rounded-[5px] bg-[#071E3D]/0 opacity-0 transition-all duration-200 group-hover:bg-[#071E3D]/35 group-hover:opacity-100 group-focus-visible:bg-[#071E3D]/35 group-focus-visible:opacity-100"><span className="inline-flex items-center gap-2 rounded-lg bg-white/95 px-3 py-2 text-xs font-bold text-[#071E3D] shadow-lg"><Maximize2 size={15} aria-hidden="true" /> Enlarge image</span></span>
+        </button>
+        {typeof document !== 'undefined' && createPortal(
+          <AnimatePresence>
+            {isExpanded && <motion.div role="dialog" aria-modal="true" aria-label={`Enlarged ${title}`} className="fixed inset-0 z-[100] flex items-center justify-center bg-[#071B33]/88 p-5 sm:p-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsExpanded(false)}>
+              <motion.div className="relative w-full max-w-[min(92vw,1600px)]" initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .96 }} onClick={(event) => event.stopPropagation()}>
+                <button type="button" onClick={() => setIsExpanded(false)} aria-label="Close enlarged image" autoFocus className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-[#071B33]/90 text-white shadow-lg transition-colors hover:bg-[#1267E5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2"><X size={20} aria-hidden="true" /></button>
+                <img src={imageUrl} alt={alt} referrerPolicy="no-referrer" className="max-h-[84vh] w-full rounded-lg border border-white/55 bg-white p-[2px] object-contain shadow-2xl" />
+              </motion.div>
+            </motion.div>}
+          </AnimatePresence>,
+          document.body
+        )}
+      </>
     );
   }
 
@@ -105,39 +132,39 @@ const FLIGHT_SCHEDULING_VISUALS: Record<string, ProductVisual> = {
     description: "Recurring schedules across selected dates, operating days, rotations, aircraft assignments and route information.",
     aspectRatio: "16:10",
     alt: "Product visual reserved for the JoyaFleet recurring flight schedule planner interface",
-    imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80"
+    imageUrl: "/images/recurring-schedule-interface.png"
   },
   adhoc: {
     id: "adhoc-schedule",
-    title: "Ad-Hoc Flight Planning View",
-    description: "Individual non-recurring flights with route, airport, aircraft, tag and schedule information.",
+    title: "Schedule Selection Controls View",
+    description: "Select flights through date, day, state, aircraft, route and tag filters.",
     aspectRatio: "16:10",
-    alt: "Product visual reserved for the JoyaFleet ad-hoc flight planner interface",
-    imageUrl: "https://images.unsplash.com/photo-1519074069444-1ba4eae16748?auto=format&fit=crop&w=1200&q=80"
+    alt: "Joya Fleet select flights dialog",
+    imageUrl: "/images/schedule-selection-interface.png"
   },
   timezone: {
     id: "timezone-planning",
-    title: "Route & Time-Zone Planning View",
-    description: "Departure, destination and alternate-airport information with time-zone-aware planning.",
+    title: "Schedule Import & Export View",
+    description: "Export schedule options with source selection, date-range filtering and XLSX download controls.",
     aspectRatio: "16:10",
-    alt: "Product visual reserved for the JoyaFleet route and time-zone planner interface",
-    imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80"
+    alt: "Joya Fleet schedule export dialog",
+    imageUrl: "/images/schedule-import-export-interface.png"
   },
   classification: {
     id: "schedule-classification",
-    title: "Schedule Organization & Visibility View",
-    description: "Schedule status, configurable tags and aircraft or airport filters for reviewing planned activity.",
+    title: "Publish Schedule Flights View",
+    description: "Select draft flights, set trip type and publish approved flights into the operational schedule.",
     aspectRatio: "16:10",
-    alt: "Product visual reserved for the JoyaFleet schedule classification and filters interface",
-    imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80"
+    alt: "Joya Fleet publish schedule flights dialog",
+    imageUrl: "/images/schedule-publishing-interface.png"
   },
   workspace: {
     id: "scheduling-workspace",
     title: "JoyaFleet Flight Scheduling Workspace",
     description: "A scheduling workspace for recurring and ad-hoc flights, aircraft context, route information and draft or published schedules.",
     aspectRatio: "16:9",
-    alt: "Product visual reserved for the JoyaFleet flight scheduling workspace interface",
-    imageUrl: "https://images.unsplash.com/photo-1517649763962-0c623266010b?auto=format&fit=crop&w=1200&q=80"
+    alt: "Joya Fleet flight scheduling workspace",
+    imageUrl: "/images/scheduling-workspace-interface.png"
   }
 };
 
@@ -187,46 +214,46 @@ export default function FlightScheduling() {
   // Capabilities Data
   const capabilities: CapabilityBlock[] = [
     {
-      title: "Recurring Flight Programs",
-      description: "Build schedules across selected date ranges and operating days while keeping repeated flight information organized within a consistent planning structure.",
+      title: "The integrated solution for large scale scheduling",
+      description: "We have designed the SCHED module with airlines in mind. SCHED helps to streamline the complex process of planning and managing airline schedules.",
       points: [
-        "Date ranges",
-        "Operating days",
-        "Schedule rotations",
-        "Aircraft assignment"
+        "Airline-focused scheduling",
+        "Connected planning workspace",
+        "Large-scale schedule management",
+        "Operational consistency"
       ],
       visual: FLIGHT_SCHEDULING_VISUALS.recurring
     },
     {
-      title: "Ad-Hoc Flight Planning",
-      description: "Add non-recurring flights and operational schedule changes without separating them from the wider planning environment.",
+      title: "Simple Schedule Controls",
+      description: "Manage schedules with simple controls for selecting, deleting, adding, updating and multi-selecting schedule items in one clear workspace.",
       points: [
-        "Ad-hoc flights",
-        "Route information",
-        "Airport selection",
-        "Aircraft assignment"
+        "Simple schedule selection",
+        "Add schedule items",
+        "Update schedule details",
+        "Delete and multi-select"
       ],
       visual: FLIGHT_SCHEDULING_VISUALS.adhoc
     },
     {
-      title: "Route and Time-Zone Context",
-      description: "Plan with connected departure, destination, alternate-airport and time-zone information across the flying program.",
+      title: "Import Export",
+      description: "Import and export schedules from and to SSIM and XLS files. When changes are made to a previously uploaded schedule, the new upload replaces the existing schedule information.",
       points: [
-        "Departure airport",
-        "Destination airport",
-        "Alternate airports",
-        "Time-zone-aware planning"
+        "SSIM imports",
+        "XLS imports",
+        "Schedule exports",
+        "Replacement updates"
       ],
       visual: FLIGHT_SCHEDULING_VISUALS.timezone
     },
     {
-      title: "Schedule Organization & Visibility",
-      description: "Use schedule status, operational information and configurable tags to organize and review planned flying activity.",
+      title: "Publishing flights",
+      description: "Publish approved schedule versions into operational flights when the planning review is complete, keeping schedule changes controlled and visible to operations teams.",
       points: [
-        "Flight status",
-        "Schedule tags",
-        "Aircraft filters",
-        "Airport filters"
+        "Approved schedule versions",
+        "Controlled publishing",
+        "Operational flight creation",
+        "Visible schedule changes"
       ],
       visual: FLIGHT_SCHEDULING_VISUALS.classification
     }
@@ -333,7 +360,7 @@ export default function FlightScheduling() {
 
   // Interactive timeline state for Section 6
   const [activeConnectedIndex, setActiveConnectedIndex] = useState<number>(0);
-
+  const [activeCapabilityIndex, setActiveCapabilityIndex] = useState<number>(0);
   return (
     <MotionConfig reducedMotion="user">
       <div className="w-full pointer-events-auto min-h-screen font-sans text-gray-900">
@@ -343,77 +370,90 @@ export default function FlightScheduling() {
           <HeroBackground />
           <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
             
-            {/* Elegant Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="inline-flex items-center gap-2 mb-8 text-xs font-semibold text-blue-200 tracking-wider uppercase font-mono bg-[#1267E5]/20 backdrop-blur-md px-4 py-1.5 rounded-lg border border-[#38BDF8]/30 shadow-2xs">
-              <Link to="/platform" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-[#38BDF8] focus-visible:outline-none rounded">Platform</Link>
-              <ChevronRight size={10} aria-hidden="true" className="text-blue-300" />
-              <span className="text-[#38BDF8] font-bold">Flight Scheduling</span>
-            </nav>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-              
-              <div 
-                data-aos="fade-right"
-                data-aos-duration="800"
-                className="lg:col-span-7 flex flex-col items-start text-left bg-white/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-10 lg:p-12 border border-white/80 shadow-2xl shadow-[#071E3D]/40 text-gray-900"
-              >
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#1267E5]/10 text-[#1267E5] border border-[#1267E5]/20 rounded-lg text-xs font-bold uppercase tracking-widest mb-6">
-                  <Calendar size={12} className="text-[#1267E5]" aria-hidden="true" /> FLIGHT SCHEDULING MODULE
-                </span>
-                
-                <h1 className="text-4xl sm:text-6xl font-bold text-gray-950 tracking-tight leading-[1.1] mb-2">
+            <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8 xl:gap-12">
+              <div data-aos="fade-right" data-aos-duration="800" className="lg:col-span-5 xl:col-span-5">
+                <nav aria-label="Breadcrumb" className="mb-5 inline-flex items-center gap-2 rounded-lg border border-[#38BDF8]/30 bg-[#1267E5]/20 px-3.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-200 shadow-2xs backdrop-blur-md">
+                  <Link to="/platform" className="rounded transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#38BDF8]">Platform</Link>
+                  <ChevronRight size={10} aria-hidden="true" className="text-blue-300" />
+                  <span className="font-bold text-[#38BDF8]">Flight Scheduling</span>
+                </nav>
+                <h1 className="max-w-xl text-5xl font-bold leading-[0.98] tracking-tight text-white sm:text-6xl xl:text-7xl">
                   Flight Scheduling Software
                 </h1>
-                <h2 className="text-3xl sm:text-5xl font-bold text-[#1267E5] tracking-tight leading-tight mb-6">
+                <p className="mt-3 max-w-xl text-4xl font-bold leading-[1.05] tracking-tight text-[#38B2F6] sm:text-5xl xl:text-6xl">
                   From Planning to Operations
-                </h2>
-                
-                <p className="text-lg sm:text-xl text-gray-800 font-normal leading-relaxed mb-4 max-w-xl">
+                </p>
+                <p className="mt-7 max-w-xl text-base leading-relaxed text-sky-50 sm:text-lg">
                   Create and manage recurring and ad-hoc flight schedules with aircraft context, route information, airport details and operational visibility.
                 </p>
-                
-                <p className="text-base text-gray-600 font-normal leading-relaxed mb-8 max-w-lg">
-                  JoyaFleet provides flight planning teams with a structured scheduling environment to create, review, update and transition approved schedules into daily flight operations.
+                <p className="mt-4 max-w-lg text-sm leading-relaxed text-sky-100/75 sm:text-base">
+                  Give your planning teams a structured workflow to create, review, update and publish schedules into daily flight operations.
                 </p>
-                
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-6">
-                  <Link
-                    to="/contact?intent=demo&module=flight-scheduling"
-                    className="bg-[#EE1C25] hover:bg-[#D4151D] text-white text-center font-bold px-8 py-3.5 rounded-lg text-base transition-colors shadow-lg shadow-[#EE1C25]/25 whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#EE1C25] focus-visible:ring-offset-2 focus-visible:outline-none"
-                  >
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <Link to="/contact?intent=demo&module=flight-scheduling" className="rounded-lg bg-[#EE1C25] px-7 py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-[#EE1C25]/30 transition-colors hover:bg-[#D4151D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
                     Request a Scheduling Demo
                   </Link>
-                  <Link
-                    to="/platform"
-                    className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-900 text-center font-semibold px-8 py-3.5 rounded-lg text-base transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 focus-visible:outline-none shadow-xs"
-                  >
-                    Explore the Platform
+                  <Link to="/platform" className="inline-flex items-center justify-center gap-2 rounded-lg border border-sky-100/80 bg-white px-7 py-3.5 text-sm font-bold text-[#071E3D] shadow-lg transition-colors hover:bg-sky-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                    Explore the Platform <ArrowRight size={16} aria-hidden="true" />
                   </Link>
                 </div>
-                
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest font-mono">
-                  Recurring Schedules • Ad-Hoc Flights • Schedule Updates • Draft & Publish Workflow
-                </p>
               </div>
 
-              {/* Premium Aviation Scheduling visual concept */}
-              <div 
-                data-aos="fade-left"
-                data-aos-duration="850"
-                data-aos-delay="150"
-                className="lg:col-span-5 w-full"
-              >
-                <div className="relative rounded-2xl overflow-hidden border border-[#1267E5]/30 bg-[#071B33] shadow-2xl">
-                  <img 
-                    src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80" 
-                    alt="Flight Schedule Graphic (Joya Schedule Sequence)" 
-                    className="w-full h-auto object-cover max-h-[420px] opacity-90"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#071B33]/80 via-transparent to-transparent pointer-events-none" />
+              <div data-aos="fade-left" data-aos-duration="900" className="relative mx-auto w-full max-w-4xl lg:col-span-7 xl:col-span-7">
+                <svg className="pointer-events-none absolute -inset-8 hidden h-[calc(100%+4rem)] w-[calc(100%+4rem)] lg:block" viewBox="0 0 1000 620" fill="none" aria-hidden="true">
+                  <defs>
+                    <filter id="scheduleGlow"><feGaussianBlur stdDeviation="4" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+                  </defs>
+                  <path d="M48 172C116 90 212 94 267 148" stroke="#39BFF8" strokeWidth="2" strokeDasharray="5 8" opacity=".85">
+                    <animate attributeName="stroke-dashoffset" values="0;-52" dur="3s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M610 75C748 1 865 38 930 122" stroke="#C7F1FF" strokeWidth="2" strokeDasharray="5 8" opacity=".9">
+                    <animate attributeName="stroke-dashoffset" values="0;-52" dur="3s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M776 503C866 494 915 449 937 377" stroke="#39BFF8" strokeWidth="2" strokeDasharray="5 8" opacity=".75">
+                    <animate attributeName="stroke-dashoffset" values="0;-52" dur="3.4s" repeatCount="indefinite" />
+                  </path>
+                  <circle cx="267" cy="148" r="5" fill="#39BFF8" filter="url(#scheduleGlow)"><animate attributeName="r" values="4;8;4" dur="1.5s" repeatCount="indefinite" /></circle>
+                  <circle cx="610" cy="75" r="5" fill="#39BFF8" filter="url(#scheduleGlow)"><animate attributeName="r" values="4;8;4" dur="1.8s" repeatCount="indefinite" /></circle>
+                  <path d="M744 49l19 15-19 15 5-15-5-15Z" fill="white"><animateTransform attributeName="transform" type="translate" values="0 0;18 8;0 0" dur="2.4s" repeatCount="indefinite" /></path>
+                </svg>
+                <div className="relative overflow-hidden rounded-2xl border border-[#57C5FF]/85 bg-[#071E3D] p-1 shadow-[0_0_0_2px_rgba(57,191,248,.18),0_0_42px_rgba(18,103,229,.7)]">
+                  <div className="absolute inset-0 animate-pulse bg-[#39BFF8]/10 blur-xl" aria-hidden="true" />
+                  <div className="relative overflow-hidden rounded-xl bg-white">
+                    <div className="flex h-11 items-center justify-between bg-[#062A61] px-4 text-[10px] font-bold text-white sm:h-13 sm:px-6 sm:text-xs">
+                      <span className="text-lg tracking-tight sm:text-2xl">JOYA</span>
+                      <span className="hidden items-center gap-4 text-sky-100 md:flex"><Calendar size={13} /> SCHED <span>OPS</span><span>CREW</span><span>REPORTS</span></span>
+                      <span className="rounded-md bg-white/15 px-2 py-1">DD</span>
+                    </div>
+                    <div className="relative">
+                      <img src="/images/flight-scheduling-interface.png" alt="Joya Fleet flight scheduling dashboard" className="block w-full" />
+                      <div className="absolute inset-y-0 left-[56%] w-[2px] bg-[#159AF5] shadow-[0_0_14px_4px_rgba(21,154,245,.55)]">
+                        <span className="absolute -left-4 top-[18%] rounded-md bg-[#1267E5] px-2 py-1 text-[8px] font-bold text-white shadow-lg sm:text-[10px]">NOW 10:24</span>
+                        <span className="absolute -left-1 top-[17%] h-3 w-3 rounded-full bg-[#39BFF8] ring-4 ring-[#39BFF8]/25"><span className="absolute inset-0 animate-ping rounded-full bg-[#39BFF8]" /></span>
+                      </div>
+                      <motion.div animate={{ scale: [1, 1.06, 1], opacity: [.84, 1, .84] }} transition={{ duration: 2.2, repeat: Infinity }} className="absolute left-[36%] top-[34%] rounded-md border border-[#39BFF8] bg-[#1267E5] px-3 py-1 text-[9px] font-bold text-white shadow-[0_0_20px_rgba(18,103,229,.9)]">SIH → DXB</motion.div>
+                      <div className="absolute left-[45%] top-[46%] hidden rounded-lg bg-white p-3 text-[10px] text-[#10233F] shadow-xl md:block">
+                        <strong className="block">EP-SIH</strong><strong>THR → DXB</strong><span className="mt-1 block text-slate-500">13 Aug 2025<br />06:30 – 10:15</span><span className="mt-2 inline-block rounded bg-emerald-100 px-1.5 py-0.5 text-[8px] text-emerald-700">Scheduled</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-slate-200 px-3 py-2 text-[8px] text-slate-500 sm:px-5 sm:text-[10px]">
+                      <span className="font-semibold">52 flights</span><span className="hidden items-center gap-3 sm:flex"><i className="h-2 w-2 rounded-full bg-[#159AF5]" /> Scheduled <i className="h-2 w-2 rounded-full bg-slate-300" /> Draft <i className="h-2 w-2 rounded-full bg-rose-400" /> Conflict</span><button type="button" className="rounded border border-[#1267E5] px-2 py-1 font-bold text-[#1267E5]">New Schedule</button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              <div className="grid gap-3 border-t border-sky-200/20 pt-7 sm:grid-cols-2 lg:col-span-12 lg:grid-cols-4">
+                {[
+                  [Calendar, 'Recurring & Ad-hoc', 'Flexible scheduling'],
+                  [Plane, 'Aircraft Roster', 'Full fleet visibility'],
+                  [Clock3, 'Conflict Detection', 'Reduce operational risks'],
+                  [Upload, 'Draft & Publish', 'Controlled workflow']
+                ].map(([Icon, title, description]) => {
+                  const FeatureIcon = Icon as typeof Calendar;
+                  return <div key={title as string} className="flex items-center gap-3 rounded-xl bg-white/5 p-3 text-left"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-sky-300/25 bg-[#1267E5]/15 text-[#39BFF8]"><FeatureIcon size={19} /></span><span><strong className="block text-sm text-white">{title as string}</strong><small className="text-xs text-sky-100/65">{description as string}</small></span></div>;
+                })}
+              </div>
             </div>
           </div>
         </section>
@@ -522,77 +562,45 @@ export default function FlightScheduling() {
               </p>
             </div>
 
-            <div className="space-y-32">
-              {capabilities.map((cap, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <div 
-                    key={index} 
-                    className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
-                  >
-                    
-                    {/* Content block */}
-                    <div 
-                      data-aos={isEven ? "fade-right" : "fade-left"}
-                      data-aos-duration="750"
-                      className={`lg:col-span-6 flex flex-col items-start ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
-                    >
-                      <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight mb-4">
-                        {cap.title}
-                      </h3>
-                      <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
-                        {cap.description}
-                      </p>
+            <div className="rounded-3xl border border-[#1267E5]/20 bg-white/65 p-4 shadow-[0_18px_45px_rgba(7,30,61,.08)] backdrop-blur-md sm:p-6 lg:p-8">
+              <div role="tablist" aria-label="Flight scheduling capabilities" className="mb-7 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                {capabilities.map((cap, index) => {
+                  const isActive = index === activeCapabilityIndex;
+                  return (
+                    <button key={cap.title} type="button" role="tab" aria-selected={isActive} onClick={() => setActiveCapabilityIndex(index)} className={`min-w-max rounded-lg border px-4 py-2.5 text-left text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] ${isActive ? 'border-[#1267E5] bg-[#1267E5] text-white shadow-lg shadow-[#1267E5]/20' : 'border-[#1267E5]/15 bg-white/70 text-gray-600 hover:border-[#1267E5]/45 hover:text-[#1267E5]'}`}>
+                      <span className="mr-2 font-mono text-[10px] opacity-70">0{index + 1}</span>{cap.title}
+                    </button>
+                  );
+                })}
+              </div>
 
-                      <div className="grid grid-cols-2 gap-4 w-full mb-8">
-                        {cap.points.map((point, pIdx) => (
-                          <div key={pIdx} className="flex gap-2.5 items-center text-sm font-semibold text-gray-800">
-                            <div className="w-5 h-5 rounded-md bg-[#1267E5]/10 flex items-center justify-center shrink-0">
-                              <Check size={13} className="text-[#1267E5]" aria-hidden="true" />
-                            </div>
-                            <span>{point}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="px-4 py-2 bg-white/80 border-l-2 border-[#1267E5] text-xs text-gray-700 font-medium rounded-r shadow-2xs">
-                        Structured flight planning context
-                      </div>
-                    </div>
-
-                    {/* Configurable Visual Container */}
-                    <div 
-                      data-aos={isEven ? "fade-left" : "fade-right"}
-                      data-aos-duration="800"
-                      data-aos-delay="100"
-                      className={`lg:col-span-6 ${isEven ? 'lg:order-2' : 'lg:order-1'} w-full`}
-                    >
-                      <div className="bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-[#1267E5]/20 shadow-sm overflow-hidden">
-                        <div className="flex justify-between items-center border-b border-gray-200 pb-3.5 mb-6">
-                          <div className="flex items-center gap-2">
-                            <span className="w-2.5 h-2.5 rounded-full bg-gray-300" />
-                            <span className="w-2.5 h-2.5 rounded-full bg-gray-300" />
-                            <span className="w-2.5 h-2.5 rounded-full bg-gray-300" />
-                          </div>
-                          <span className="text-[10px] font-mono tracking-widest text-[#1267E5] uppercase font-bold">
-                            JoyaFleet
-                          </span>
+              <AnimatePresence mode="wait">
+                {(() => {
+                  const cap = capabilities[activeCapabilityIndex];
+                  return (
+                    <motion.div key={cap.title} role="tabpanel" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.28 }} className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+                      <div className="lg:col-span-5">
+                        <p className="font-mono text-[11px] font-bold uppercase tracking-[.16em] text-[#1267E5]">Scheduling capability · 0{activeCapabilityIndex + 1}</p>
+                        <h3 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{cap.title}</h3>
+                        <p className="mt-4 text-base leading-relaxed text-gray-700 sm:text-lg">{cap.description}</p>
+                        <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          {cap.points.map((point) => <div key={point} className="flex items-center gap-2.5 text-sm font-semibold text-gray-800"><span className="grid h-5 w-5 shrink-0 place-items-center rounded-md bg-[#1267E5]/10"><Check size={13} className="text-[#1267E5]" aria-hidden="true" /></span>{point}</div>)}
                         </div>
-
-                        <ProductVisualFrame
-                          id={cap.visual.id}
-                          title={cap.visual.title}
-                          description={cap.visual.description}
-                          aspectRatio={cap.visual.aspectRatio}
-                          alt={cap.visual.alt}
-                          imageUrl={cap.visual.imageUrl}
-                        />
+                        <div className="mt-7 inline-flex rounded-r bg-white/80 px-4 py-2 text-xs font-medium text-gray-700 shadow-2xs border-l-2 border-[#1267E5]">Structured flight planning context</div>
                       </div>
-                    </div>
+                      <div className="lg:col-span-7">
+                        <ProductVisualFrame id={cap.visual.id} title={cap.visual.title} description={cap.visual.description} aspectRatio={cap.visual.aspectRatio} alt={cap.visual.alt} imageUrl={cap.visual.imageUrl} />
+                      </div>
+                    </motion.div>
+                  );
+                })()}
+              </AnimatePresence>
 
-                  </div>
-                );
-              })}
+              <div className="mt-7 flex items-center justify-between border-t border-[#1267E5]/15 pt-5">
+                <button type="button" onClick={() => setActiveCapabilityIndex((activeCapabilityIndex - 1 + capabilities.length) % capabilities.length)} className="inline-flex items-center gap-2 rounded-lg border border-[#1267E5]/20 bg-white px-3 py-2 text-xs font-bold text-[#1267E5] transition-colors hover:bg-[#1267E5] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5]"><ChevronLeft size={16} /> Previous</button>
+                <span className="font-mono text-xs font-bold text-gray-500">{activeCapabilityIndex + 1} / {capabilities.length}</span>
+                <button type="button" onClick={() => setActiveCapabilityIndex((activeCapabilityIndex + 1) % capabilities.length)} className="inline-flex items-center gap-2 rounded-lg border border-[#1267E5] bg-[#1267E5] px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-[#0E55C5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5]">Next <ChevronRight size={16} /></button>
+              </div>
             </div>
 
           </div>

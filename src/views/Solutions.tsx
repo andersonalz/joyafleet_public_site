@@ -303,8 +303,8 @@ export default function Solutions() {
                   <span className="text-lg sm:text-xl font-bold text-gray-900 font-mono">Real-Time Sync</span>
                 </div>
                 <div className="bg-gray-50/90 backdrop-blur-sm p-4 rounded-2xl border border-gray-200/80 shadow-xs">
-                  <span className="text-[10px] font-mono text-gray-500 uppercase block font-bold">Deployment Hub</span>
-                  <span className="text-lg sm:text-xl font-bold text-[#1267E5] font-mono">Shiraz, IR</span>
+                  <span className="text-[10px] font-mono text-gray-500 uppercase block font-bold">Solution Coverage</span>
+                  <span className="text-lg sm:text-xl font-bold text-[#1267E5] font-mono">Plan to Report</span>
                 </div>
               </div>
             </motion.div>

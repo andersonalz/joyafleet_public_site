@@ -176,7 +176,7 @@ export default function AboutUs() {
 
                 <div className="mt-8 pt-6 border-t border-gray-200/80 flex flex-wrap items-center gap-6 text-xs text-gray-600 font-mono">
                   <span className="flex items-center gap-1.5">
-                    <MapPin size={14} className="text-[#1267E5]" /> Shiraz R&D Center
+                    <MapPin size={14} className="text-[#1267E5]" /> London R&D Center
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Workflow size={14} className="text-[#1267E5]" /> Inception: 1400 SH
@@ -212,7 +212,7 @@ export default function AboutUs() {
                 <div className="space-y-3 font-mono text-xs border-t border-white/10 pt-4 text-blue-200">
                   <div className="flex justify-between py-1 border-b border-white/10">
                     <span className="text-blue-300">Headquarters</span>
-                    <span className="text-white font-bold">Shiraz, Iran</span>
+                    <span className="text-white font-bold">London, UK</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-white/10">
                     <span className="text-blue-300">Core Engine</span>
@@ -243,13 +243,13 @@ export default function AboutUs() {
                 </h2>
                 <div className="space-y-4 text-base sm:text-lg text-gray-700 leading-relaxed">
                   <p>
-                    The Joya Fleet project began in <strong className="text-gray-950">1400 SH</strong> in Shiraz with a deliberate focus: eliminating the friction and risks created by fragmented operational tools across airline departments.
+                    The Joya Fleet project began in <strong className="text-gray-950">2021</strong> in London with a deliberate focus: eliminating the friction and risks created by fragmented operational tools across airline departments.
                   </p>
                   <p>
                     In everyday airline operations, schedules live in spreadsheets, crew duty limits in separate offline software, maintenance logs in physical books or isolated databases, and civil aviation authority reporting in yet another portal.
                   </p>
                   <p>
-                    Joya Fleet bridges these silos into a cohesive, synchronized platform built specifically for the operational, regulatory, and technical realities of airlines in Iran and the broader region.
+                    Joya Fleet bridges these silos into a cohesive, synchronized platform built specifically for the operational, regulatory, and technical realities of airline teams.
                   </p>
                 </div>
               </div>
@@ -265,7 +265,7 @@ export default function AboutUs() {
                 <div className="border-l-4 border-[#1267E5] bg-gray-50/80 backdrop-blur-sm p-6 rounded-r-2xl border-y border-r border-gray-200/80 shadow-xs">
                   <span className="text-[10px] font-mono font-bold text-[#1267E5] tracking-wider uppercase block mb-2">02 • INTEGRITY</span>
                   <h4 className="font-bold text-gray-950 text-base mb-2">Regional Compliance</h4>
-                  <p className="text-xs text-gray-600 leading-relaxed">Configured around CAO IRI standards, strict FTL limits, and regional airline requirements.</p>
+                  <p className="text-xs text-gray-600 leading-relaxed">Configured around applicable aviation standards, strict FTL limits, and airline requirements.</p>
                 </div>
 
                 <div className="border-l-4 border-[#1267E5] bg-gray-50/80 backdrop-blur-sm p-6 rounded-r-2xl border-y border-r border-gray-200/80 shadow-xs">
