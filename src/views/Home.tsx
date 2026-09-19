@@ -10,10 +10,8 @@ import {
   Check 
 } from 'lucide-react';
 import { AviationHero } from '../components/AviationHero';
-import type { HomePocContent } from '../content/cms-published';
 
-export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
-  const executiveHeading = cmsContent?.executiveHeading ?? 'Connect every part of your flight operation in one platform.';
+export default function Home() {
   // Configurable Product Screenshots Placeholders
   const PRODUCT_SCREENSHOTS = {
     workflowInterface: {
@@ -123,7 +121,7 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div data-cms-page-id="page_18d9c27e8dae4042ab232300098d30be">
+      <div>
       {/* SECTION 1: HERO SECTION */}
       <AviationHero />
 
@@ -132,10 +130,10 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div data-aos="fade-up" data-aos-duration="450" className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-bold tracking-widest text-[#1267E5] uppercase mb-4 block font-mono">CONNECTED FLIGHT OPERATIONS</span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#10233F] mb-6 tracking-tight" data-cms-id="cms_098fefb321f045babb6b2b405db2ed28">
-              {executiveHeading}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#10233F] mb-6 tracking-tight">
+              Connect every part of your flight operation in one platform.
             </h2>
-            <p className="text-lg text-[#52667F] leading-relaxed" data-cms-id="cms_b9268c34719c4f8b8426ba1779d4b762">
+            <p className="text-lg text-[#52667F] leading-relaxed">
               JoyaFleet connects planning, operations, dispatch, crew coordination and reporting workflows to help aviation teams manage each flight from preparation to completion.
             </p>
           </div>
@@ -152,8 +150,8 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                 <div className="w-12 h-12 bg-[#EEF7FF] rounded-xl flex items-center justify-center text-[#1267E5] mb-6 border border-[#DCE8F5]">
                   <Layers size={22} aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold text-[#10233F] mb-3" data-cms-id="cms_77b9679354a2432b9edde3d4626ae993">Connected Flight Operations</h3>
-                <p className="text-[#52667F] text-sm sm:text-base leading-relaxed" data-cms-id="cms_27f64257fbc84740ad8b38162e4ced60">
+                <h3 className="text-xl font-bold text-[#10233F] mb-3">Connected Flight Operations</h3>
+                <p className="text-[#52667F] text-sm sm:text-base leading-relaxed">
                   Connect schedules, aircraft information, crew assignments, dispatch activities and operational records through a shared operational workflow.
                 </p>
               </div>
@@ -170,8 +168,8 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                 <div className="w-12 h-12 bg-[#EEF7FF] rounded-xl flex items-center justify-center text-[#1267E5] mb-6 border border-[#DCE8F5]">
                   <Settings size={22} aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold text-[#10233F] mb-3" data-cms-id="cms_afaaf3167038458bb1e7527e65398825">Configured For Your Operation</h3>
-                <p className="text-[#52667F] text-sm sm:text-base leading-relaxed" data-cms-id="cms_24ef6420dc0d4afd9865f21452154852">
+                <h3 className="text-xl font-bold text-[#10233F] mb-3">Configured For Your Operation</h3>
+                <p className="text-[#52667F] text-sm sm:text-base leading-relaxed">
                   Adapt workflows, roles, checklists and reporting structures around your operational requirements.
                 </p>
               </div>
@@ -188,8 +186,8 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                 <div className="w-12 h-12 bg-[#EEF7FF] rounded-xl flex items-center justify-center text-[#1267E5] mb-6 border border-[#DCE8F5]">
                   <BarChart3 size={22} aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold text-[#10233F] mb-3" data-cms-id="cms_5f9edfed346b44fba86ca4221415d902">Operational Visibility</h3>
-                <p className="text-[#52667F] text-sm sm:text-base leading-relaxed" data-cms-id="cms_992f555f024b458b920fe5078987f5d7">
+                <h3 className="text-xl font-bold text-[#10233F] mb-3">Operational Visibility</h3>
+                <p className="text-[#52667F] text-sm sm:text-base leading-relaxed">
                   Give management teams clearer access to flight activity, operational records, performance information and configurable reports.
                 </p>
               </div>
@@ -203,8 +201,8 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div data-aos="fade-up" data-aos-duration="450" className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-bold tracking-widest text-[#1267E5] uppercase mb-4 block font-mono">FROM PLAN TO FLIGHT</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#10233F] mb-6 tracking-tight" data-cms-id="cms_9d06cfbd981e4d4d93a96454e74473b4">Manage the complete flight lifecycle.</h2>
-            <p className="text-lg text-[#52667F] leading-relaxed mb-6" data-cms-id="cms_2be42b90099b48009baa0bbd99c44a67">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#10233F] mb-6 tracking-tight">Manage the complete flight lifecycle.</h2>
+            <p className="text-lg text-[#52667F] leading-relaxed mb-6">
               From schedule creation to operational execution and reporting, JoyaFleet keeps critical flight information connected throughout the lifecycle.
             </p>
             <div className="inline-flex flex-wrap items-center justify-center gap-2 text-[10px] font-mono uppercase tracking-wider text-[#52667F] bg-white/80 backdrop-blur-md border border-[#DCE8F5] px-4 py-2 rounded-lg shadow-xs">
@@ -284,7 +282,7 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                         Schedule planner interface displaying aircraft schedules, turnaround windows and ground stops.
                       </p>
                       <div className="relative rounded-2xl overflow-hidden border border-[#002D70] bg-[#002D70]/40 shadow-sm">
-                        <img data-cms-id="cms_7cdf7ee665e74ab4a01f3ca42be54a73"
+                        <img
                           src="/images/flight-scheduling-interface.png"
                           alt="Joya flight scheduling interface"
                           className="w-full h-auto object-cover max-h-[350px]"
@@ -309,7 +307,7 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                         Allocate crew to operational trips and review FTL duty limit guidelines and rest requirements.
                       </p>
                       <div className="relative rounded-2xl overflow-hidden border border-[#002D70] bg-[#002D70]/40 shadow-sm">
-                        <img data-cms-id="cms_1d7ec070c494454a9bf27d5c490ddd50"
+                        <img
                           src="/images/operations-interface.png"
                           alt="Joya operations interface"
                           className="w-full h-auto object-cover max-h-[350px]"
@@ -334,7 +332,7 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                         Review flight dispatcher checklists and record dispatch release details.
                       </p>
                       <div className="relative rounded-2xl overflow-hidden border border-[#002D70] bg-[#002D70]/40 shadow-sm">
-                        <img data-cms-id="cms_ea2aefa2245b433e9be47903ae8e2811"
+                        <img
                           src="/images/crew-planning-interface.png"
                           alt="Joya crew planning interface"
                           className="w-full h-auto object-cover max-h-[350px]"
@@ -359,7 +357,7 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                         Record actual out-off-on-in (OOOI) times, actual departure/arrival records and delays.
                       </p>
                       <div className="relative rounded-2xl overflow-hidden border border-[#002D70] bg-[#002D70]/40 shadow-sm">
-                        <img data-cms-id="cms_0b9957b60cf740da83ecf3963fd7b5d8"
+                        <img
                           src="/images/flight-watch-interface.png"
                           alt="Joya Flight Watch interface"
                           className="w-full h-auto object-cover max-h-[350px]"
@@ -384,7 +382,7 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
                         Generate comprehensive operational flight reports, journey logs, fuel audit logs, delay analytics, and performance reports.
                       </p>
                       <div className="relative rounded-2xl overflow-hidden border border-[#002D70] bg-[#002D70]/40 shadow-sm">
-                        <img data-cms-id="cms_e6fe74ebe69a43568396372931931240"
+                        <img
                           src="/images/reports-interface.png"
                           alt="Joya reports interface"
                           className="w-full h-auto object-cover max-h-[350px]"
@@ -523,10 +521,10 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div data-aos="fade-up" data-aos-duration="450" className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-bold tracking-widest text-[#1267E5] uppercase mb-4 block font-mono">THE JOYAFLEET PLATFORM</span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#10233F] mb-6 tracking-tight" data-cms-id="cms_1be89f01315f4323a5ae3cbe584e7912">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#10233F] mb-6 tracking-tight">
               One platform connecting essential flight operations workflows.
             </h2>
-            <p className="text-lg text-[#52667F] leading-relaxed" data-cms-id="cms_1a58aa0bf3b04428bc78f2c5fc178f89">
+            <p className="text-lg text-[#52667F] leading-relaxed">
               A modular platform for planning flights, coordinating crews, managing dispatch activities, maintaining fleet-planning visibility and turning daily operations into usable information.
             </p>
           </div>
@@ -832,10 +830,10 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div data-aos="fade-right" data-aos-duration="450" className="lg:col-span-5">
                 <span className="text-xs font-bold tracking-widest text-[#39BFF8] uppercase mb-4 block font-mono">CONNECTED DIGITAL WORKFLOWS</span>
-                <h2 className="text-3xl sm:text-5xl font-bold mb-6 tracking-tight leading-[1.1] text-white" data-cms-id="cms_2cef2bdfaa2143d199ad2eb22061cebd">
+                <h2 className="text-3xl sm:text-5xl font-bold mb-6 tracking-tight leading-[1.1] text-white">
                   Move operational work into connected digital workflows.
                 </h2>
-                <p className="text-[#D7E5F3] text-base sm:text-lg leading-relaxed mb-8" data-cms-id="cms_a188ddae9df3428e91f7c6e08e0a16fc">
+                <p className="text-[#D7E5F3] text-base sm:text-lg leading-relaxed mb-8">
                   Reduce reliance on fragmented spreadsheets, repeated manual entry and disconnected paper records by bringing operational information, approvals and reports into one shared platform.
                 </p>
                 <div className="bg-[#002D70]/60 border border-[#1267E5]/40 p-6 rounded-xl mb-4 backdrop-blur-md">
@@ -895,13 +893,13 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div data-aos="fade-right" data-aos-duration="450" className="lg:col-span-5">
               <span className="text-xs font-bold tracking-widest text-[#1267E5] uppercase mb-4 block font-mono">CONFIGURED AROUND YOUR AIRLINE</span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#10233F] mb-6 tracking-tight" data-cms-id="cms_a2fa21fbd3124353af31aebc2fe187dd">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#10233F] mb-6 tracking-tight">
                 Adapt the platform to your operation—not your operation to the software.
               </h2>
-              <p className="text-[#52667F] text-sm sm:text-base leading-relaxed mb-8" data-cms-id="cms_b7f814ed63954d7ca3a44fa89346c771">
+              <p className="text-[#52667F] text-sm sm:text-base leading-relaxed mb-8">
                 JoyaFleet can be configured and extended around approved operational, reporting and integration requirements.
               </p>
-              <Link data-cms-id="cms_798a2ffbfbf841158d0e5cb8e52c0bcb"
+              <Link
                 to="/contact?intent=customization" 
                 className="inline-flex items-center gap-2 bg-[#1267E5] text-white font-bold px-6 py-3.5 rounded-lg text-sm hover:bg-[#1F8BFF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1267E5] focus-visible:ring-offset-2 shadow-xs"
               >
@@ -1120,8 +1118,8 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div data-aos="fade-up" data-aos-duration="450" className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-bold tracking-widest text-[#1267E5] uppercase mb-4 block font-mono">CONNECTED TO YOUR OPERATIONAL ECOSYSTEM</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#10233F] tracking-tight mb-6" data-cms-id="cms_3784493c4d824a3eb7902e98e0ffb9b5">Configured integrations. Scoped connections.</h2>
-            <p className="text-lg text-[#52667F] leading-relaxed" data-cms-id="cms_1ef6b80253ac469f821279fdff177d9c">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#10233F] tracking-tight mb-6">Configured integrations. Scoped connections.</h2>
+            <p className="text-lg text-[#52667F] leading-relaxed">
               Review configurable add-ons, configurable communication channels and separately assessed custom integrations.
             </p>
           </div>
@@ -1213,12 +1211,12 @@ export default function Home({ cmsContent }: { cmsContent?: HomePocContent }) {
         <div className="aviation-cta-bg rounded-3xl p-8 sm:p-16 text-white text-center relative overflow-hidden flex flex-col items-center shadow-2xl border border-[#1267E5]/30">
           <div className="relative z-10 max-w-3xl flex flex-col items-center">
             <span className="text-xs font-bold text-[#39BFF8] uppercase tracking-widest mb-4 font-mono">TAILORED PRODUCT EVALUATION</span>
-            <h2 className="text-3xl sm:text-5xl font-bold mb-6 tracking-tight leading-tight text-white" data-cms-id="cms_a1003cf127844104bf434df63a55ac3a">Explore how JoyaFleet can support your flight operations.</h2>
-            <p className="text-[#D7E5F3] mb-10 leading-relaxed text-sm sm:text-lg max-w-2xl" data-cms-id="cms_4226ff4e6f0b44b797b45dd86b93d43d">
+            <h2 className="text-3xl sm:text-5xl font-bold mb-6 tracking-tight leading-tight text-white">Explore how JoyaFleet can support your flight operations.</h2>
+            <p className="text-[#D7E5F3] mb-10 leading-relaxed text-sm sm:text-lg max-w-2xl">
               Discuss your operational workflows, current systems and requirements with the JoyaFleet team.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full mb-8">
-              <Link data-cms-id="cms_5b19416f93604f97b288c736ddfc40de"
+              <Link
                 to="/contact?intent=demo" 
                 className="w-full sm:w-auto bg-[#EE1C25] text-white font-bold px-8 py-3.5 rounded-lg text-base hover:bg-[#D4151D] transition-colors shadow-lg shadow-[#EE1C25]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#071B33]"
               >

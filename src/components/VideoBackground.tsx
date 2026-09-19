@@ -152,7 +152,7 @@ export function VideoBackground({ src }: VideoBackgroundProps) {
         muted
         playsInline
         crossOrigin="anonymous"
-        preload="auto"
+        preload="metadata"
       />
     </div>
   );

@@ -361,6 +361,14 @@ export default function FlightScheduling() {
   // Interactive timeline state for Section 6
   const [activeConnectedIndex, setActiveConnectedIndex] = useState<number>(0);
   const [activeCapabilityIndex, setActiveCapabilityIndex] = useState<number>(0);
+  const timelineStart = 100;
+  const timelineWidth = 800;
+  const timelineProgressX = timelineStart + (
+    activeConnectedIndex / Math.max(connectedStages.length - 1, 1)
+  ) * timelineWidth;
+  const mobileTimelineProgressY = 20 + (
+    activeConnectedIndex / Math.max(connectedStages.length - 1, 1)
+  ) * 960;
   return (
     <MotionConfig reducedMotion="user">
       <div className="w-full pointer-events-auto min-h-screen font-sans text-gray-900">
@@ -758,9 +766,7 @@ export default function FlightScheduling() {
         </section>
 
         {/* SECTION 6 — CONNECTED TO OPERATIONS */}
-        <section className="py-20 sm:py-28 bg-[#071B33] text-white border-t border-b border-[#1267E5]/30 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-[#1267E5]/20 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#39BFF8]/15 rounded-full blur-[100px] pointer-events-none" />
+        <section className="relative overflow-hidden py-20 sm:py-28">
           
           <div className="px-5 sm:px-8 max-w-7xl mx-auto w-full relative z-10">
             
@@ -772,10 +778,10 @@ export default function FlightScheduling() {
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#1267E5]/20 text-[#39BFF8] border border-[#1267E5]/30 rounded-lg text-xs font-bold uppercase tracking-widest mb-4 font-mono">
                 FROM SCHEDULE TO OPERATION
               </span>
-              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-6">
+              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-black mb-6">
                 The schedule is the beginning of the operational workflow—not the end of it.
               </h2>
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
                 Published schedules provide the foundation for trip preparation, aircraft coordination, crew planning, dispatch activities and operational flight records.
               </p>
             </div>
@@ -786,11 +792,30 @@ export default function FlightScheduling() {
               data-aos-duration="750"
               className="hidden md:block relative mb-12"
             >
-              <div className="absolute top-1/2 left-0 w-full h-[1px] bg-[#1267E5]/30 -translate-y-1/2 z-0" />
-              
-              <div className="grid grid-cols-5 gap-4 relative z-10">
+              <svg
+                className="pointer-events-none absolute inset-x-0 top-0 h-10 w-full"
+                viewBox="0 0 1000 40"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <line x1="100" y1="20" x2="900" y2="20" stroke="#1267E5" strokeOpacity="0.28" strokeWidth="2" />
+                <motion.line
+                  x1={timelineStart}
+                  y1="20"
+                  initial={{ x2: timelineStart }}
+                  animate={{ x2: timelineProgressX }}
+                  transition={{ duration: 0.55, ease: 'easeOut' }}
+                  y2="20"
+                  stroke="#39BFF8"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+
+              <div className="grid grid-cols-5 relative z-10">
                 {connectedStages.map((stage, cIdx) => {
                   const isActive = cIdx === activeConnectedIndex;
+                  const isComplete = cIdx <= activeConnectedIndex;
                   return (
                     <button
                       key={cIdx}
@@ -799,15 +824,26 @@ export default function FlightScheduling() {
                       aria-pressed={isActive}
                       className="flex flex-col items-center text-center group cursor-pointer rounded-xl focus-visible:ring-2 focus-visible:ring-[#39BFF8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071B33] focus-visible:outline-none"
                     >
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs border transition-all mb-4 ${
-                        isActive 
-                          ? 'bg-[#1267E5] text-white border-[#39BFF8] shadow-lg shadow-[#1267E5]/40 ring-2 ring-[#39BFF8]/40' 
-                          : 'bg-[#071B33] text-gray-400 border-[#1267E5]/30 group-hover:border-[#39BFF8]/60'
-                      }`}>
-                        0{cIdx + 1}
-                      </div>
+                      <svg className="mb-4 h-10 w-10 overflow-visible" viewBox="0 0 40 40" aria-hidden="true">
+                        <motion.circle
+                          cx="20"
+                          cy="20"
+                          r="17"
+                          animate={{
+                            fill: isComplete ? '#1267E5' : '#071B33',
+                            stroke: isActive ? '#39BFF8' : '#1267E5',
+                            strokeOpacity: isActive ? 1 : 0.42,
+                          }}
+                          transition={{ duration: 0.35 }}
+                          strokeWidth={isActive ? 2.5 : 1.5}
+                        />
+                        {isActive && <circle cx="20" cy="20" r="19" fill="none" stroke="#39BFF8" strokeOpacity="0.28" strokeWidth="2" />}
+                        <text x="20" y="24" textAnchor="middle" fill={isComplete ? 'white' : '#94A3B8'} fontSize="10" fontWeight="700">
+                          {`0${cIdx + 1}`}
+                        </text>
+                      </svg>
                       <h3 className={`text-xs font-bold tracking-tight mb-2 transition-colors ${
-                        isActive ? 'text-[#39BFF8]' : 'text-gray-400 group-hover:text-gray-200'
+                        isActive ? 'text-[#1267E5]' : isComplete ? 'text-[#1267E5]/75' : 'text-gray-500 group-hover:text-[#1267E5]'
                       }`}>
                         {stage.title}
                       </h3>
@@ -842,22 +878,63 @@ export default function FlightScheduling() {
               </AnimatePresence>
             </div>
 
-            {/* Mobile vertical representation */}
-            <div className="block md:hidden space-y-6 relative mb-12">
-              <div className="absolute top-0 left-5 w-[1px] h-full bg-[#1267E5]/30 z-0" />
-              
-              {connectedStages.map((stage, idx) => (
-                <div 
+            {/* Mobile vertical SVG timeline */}
+            <div className="block md:hidden relative mb-12">
+              <svg
+                className="pointer-events-none absolute left-0 top-0 h-full w-10"
+                viewBox="0 0 40 1000"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <line x1="20" y1="20" x2="20" y2="980" stroke="#1267E5" strokeOpacity="0.28" strokeWidth="2" />
+                <motion.line
+                  x1="20"
+                  y1="20"
+                  x2="20"
+                  initial={{ y2: 20 }}
+                  animate={{ y2: mobileTimelineProgressY }}
+                  transition={{ duration: 0.55, ease: 'easeOut' }}
+                  stroke="#39BFF8"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+
+              <div className="space-y-5">
+              {connectedStages.map((stage, idx) => {
+                const isActive = idx === activeConnectedIndex;
+                const isComplete = idx <= activeConnectedIndex;
+                return (
+                <button
                   key={idx} 
+                  type="button"
+                  onClick={() => setActiveConnectedIndex(idx)}
+                  aria-pressed={isActive}
                   data-aos="fade-up"
                   data-aos-duration="600"
                   data-aos-delay={idx * 80}
-                  className="flex gap-4 relative z-10"
+                  className="flex w-full gap-4 relative z-10 text-left rounded-xl focus-visible:ring-2 focus-visible:ring-[#39BFF8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071B33] focus-visible:outline-none"
                 >
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xs bg-[#1267E5] text-white border border-[#39BFF8]/40 shrink-0">
-                    {idx + 1}
-                  </div>
-                  <div className="flex-1 bg-[#0A2240] border border-[#1267E5]/30 rounded-xl p-5 text-left">
+                  <svg className="relative z-10 h-10 w-10 shrink-0 overflow-visible" viewBox="0 0 40 40" aria-hidden="true">
+                    <motion.circle
+                      cx="20"
+                      cy="20"
+                      r="17"
+                      animate={{
+                        fill: isComplete ? '#1267E5' : '#071B33',
+                        stroke: isActive ? '#39BFF8' : '#1267E5',
+                        strokeOpacity: isActive ? 1 : 0.42,
+                      }}
+                      transition={{ duration: 0.35 }}
+                      strokeWidth={isActive ? 2.5 : 1.5}
+                    />
+                    <text x="20" y="24" textAnchor="middle" fill={isComplete ? 'white' : '#94A3B8'} fontSize="10" fontWeight="700">
+                      {`0${idx + 1}`}
+                    </text>
+                  </svg>
+                  <div className={`flex-1 rounded-xl border p-5 transition-colors ${
+                    isActive ? 'border-[#39BFF8]/70 bg-[#0A2240]' : 'border-[#1267E5]/30 bg-[#0A2240]/85'
+                  }`}>
                     <h3 className="text-sm font-bold text-white mb-1">
                       {stage.title}
                     </h3>
@@ -865,8 +942,9 @@ export default function FlightScheduling() {
                       {stage.text}
                     </p>
                   </div>
-                </div>
-              ))}
+                </button>
+              )})}
+              </div>
             </div>
 
             <div 

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import '../index.css';
 import { SiteShell } from '../components/SiteShell';
 import { siteMetadataBase } from './metadata';
+import { OrganizationStructuredData } from '../components/StructuredData';
+import { DEFAULT_LOCALE, getLocaleDirection } from '../lib/locales';
 
 export const metadata: Metadata = {
   metadataBase: siteMetadataBase,
@@ -18,8 +20,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body><SiteShell>{children}</SiteShell></body>
+    <html lang={DEFAULT_LOCALE} dir={getLocaleDirection(DEFAULT_LOCALE)}>
+      <body>
+        <OrganizationStructuredData siteUrl={siteMetadataBase} />
+        <SiteShell>{children}</SiteShell>
+      </body>
     </html>
   );
 }
